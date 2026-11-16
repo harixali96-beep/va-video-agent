@@ -139,11 +139,22 @@ def best_sentence(seg):
     return max(groups, key=heat) if groups else seg
 
 
-def hook_from(seg, max_words=7):
+def hook_from(seg, limit=46):
+    """Hook = the strongest sentence, capped at a clean word boundary.
+
+    ASR chatter rarely has a tidy clause, so this stays deterministic: full
+    sentence, trailing filler words removed, then cut back to a whole word.
+    """
     seg = best_sentence(seg)
-    ws = [w.word.strip() for w in seg[:max_words]]
-    h = " ".join(ws).strip(" ,.!?").upper()
-    return h[:60]
+    toks = [w.word.strip() for w in seg if w.word.strip()]
+    while toks and re.sub(r"[^a-z']", "", toks[-1].lower()) in TRAIL:
+        toks.pop()
+    h = " ".join(toks).strip(" ,.;:!?").upper()
+    if len(h) > limit:
+        h = h[:limit].rsplit(" ", 1)[0].strip(" ,.;:!?")
+        while h and re.sub(r"[^a-z']", "", h.rsplit(" ", 1)[-1].lower()) in TRAIL:
+            h = h.rsplit(" ", 1)[0].strip(" ,.;:!?")
+    return h or "STREAM HOUSE LA"
 
 
 def title_from(seg):

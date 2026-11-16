@@ -111,7 +111,7 @@
   </div>
 
   <section class="card" style="margin-top:18px">
-    <h2>3 &middot; Rendered clips</h2>
+    <h2>3 &middot; Rendered clips <button id="refresh" class="copy" style="float:right;margin-top:-3px">refresh</button></h2>
     <div id="jobs"><p class="hint">Loading…</p></div>
   </section>
 
@@ -156,12 +156,24 @@ function copyBtn(text) {
   return b;
 }
 
+const SOURCES = [
+  'https://raw.githubusercontent.com/harixali96-beep/va-video-agent/main/shclips.json',
+  '../shclips.json'
+];
+
 async function load() {
   const box = document.getElementById('jobs');
   try {
-    const r = await fetch('../shclips.json?t=' + Date.now());
-    if (!r.ok) throw new Error('shclips.json ' + r.status);
-    const data = await r.json();
+    let data = null, lastErr = null;
+    for (const url of SOURCES) {
+      try {
+        const r = await fetch(url + (url.includes('?') ? '&' : '?') + 't=' + Date.now());
+        if (!r.ok) throw new Error(url + ' ' + r.status);
+        data = await r.json();
+        break;
+      } catch (e) { lastErr = e; }
+    }
+    if (!data) throw lastErr || new Error('no gallery data');
     const jobs = (data.jobs || []);
     if (!jobs.length) {
       box.innerHTML = '<p class="hint">Abhi koi campaign clip nahi. Upar se job shuru karo.</p>';
@@ -213,6 +225,7 @@ async function load() {
 }
 load();
 setInterval(load, 60000);
+document.getElementById("refresh").onclick = load;
 </script>
 </body>
 </html>
