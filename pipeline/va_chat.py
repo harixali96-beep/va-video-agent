@@ -133,21 +133,39 @@ GDRIVE_FILE = re.compile(r"drive\.google\.com/(?:file/d/|open\?id=|uc\?id=)([A-Z
 GDRIVE_DIR = re.compile(r"drive\.google\.com/drive/(?:u/\d+/)?folders/([A-Za-z0-9_-]{20,})")
 
 
+
+def _drive_file(file_id: str, outdir: Path) -> str:
+    """Download a public Drive file. Works across gdown versions, falls back to curl confirm flow."""
+    import gdown, subprocess, glob
+    target = outdir / "drive_source"
+    target.mkdir(parents=True, exist_ok=True)
+    dest = target / "source.mp4"
+    last = None
+    for attempt in (
+        lambda: gdown.download(id=file_id, output=str(dest), quiet=True),
+        lambda: gdown.download(url=f"https://drive.google.com/uc?id={file_id}", output=str(dest), quiet=True),
+    ):
+        try:
+            out = attempt()
+            if out and Path(out).exists() and Path(out).stat().st_size > 10000:
+                return str(out)
+        except Exception as e:
+            last = e
+    # fallback: direct usercontent endpoint with confirm token
+    r = subprocess.run(["curl", "-sL", "-o", str(dest),
+        f"https://drive.usercontent.google.com/download?id={file_id}&export=download&confirm=t"],
+        capture_output=True)
+    if dest.exists() and dest.stat().st_size > 10000 and not dest.read_bytes()[:15].lower().startswith(b"<!doctype"):
+        return str(dest)
+    raise RuntimeError(f"Google Drive download failed ({last}). Set sharing to 'Anyone with the link'.")
+
 def resolve_source(link: str, outdir: Path = CHAT_WORK) -> str:
     link = link.strip().strip('"').strip("'")
     outdir.mkdir(parents=True, exist_ok=True)
 
     m = GDRIVE_FILE.search(link)
     if m:
-        import gdown
-        target = outdir / "drive_source"
-        target.mkdir(exist_ok=True)
-        out = gdown.download(id=m.group(1), output=str(target / "source.%(ext)s"),
-                             quiet=True, fuzzy=True)
-        if not out or not Path(out).exists():
-            raise RuntimeError("Google Drive download failed - link may be private, "
-                               "set sharing to 'Anyone with the link'")
-        return out
+        return _drive_file(m.group(1), outdir)
 
     d = GDRIVE_DIR.search(link)
     if d:
