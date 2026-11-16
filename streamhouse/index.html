@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stream House LA clip studio</title>
+<style>
+  :root{--bg:#0b0d12;--panel:#12151d;--panel2:#171b26;--line:#242a38;--txt:#eef1f7;
+        --mut:#8b93a7;--acc:#ffd43b;--hot:#e62800}
+  *{box-sizing:border-box}
+  body{margin:0;background:radial-gradient(1100px 560px at 15% -8%,#2a1416,transparent),var(--bg);
+       color:var(--txt);font:15px/1.55 ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+  .wrap{max-width:1120px;margin:0 auto;padding:38px 22px 70px}
+  header{display:flex;align-items:center;gap:13px;margin-bottom:6px;flex-wrap:wrap}
+  .dot{width:11px;height:11px;border-radius:50%;background:var(--hot);box-shadow:0 0 0 4px #e6280022}
+  h1{font-size:29px;margin:0;letter-spacing:-.5px}
+  h1 span{color:var(--acc)}
+  .sub{color:var(--mut);margin:8px 0 24px;font-size:14.5px;max-width:820px}
+  .sub a{color:var(--acc);text-decoration:none}
+  .grid{display:grid;grid-template-columns:1.02fr .98fr;gap:18px}
+  @media(max-width:860px){.grid{grid-template-columns:1fr}}
+  .card{background:linear-gradient(180deg,var(--panel),var(--panel2));border:1px solid var(--line);
+        border-radius:16px;padding:20px}
+  h2{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--mut);margin:0 0 14px}
+  label{display:block;font-size:12px;color:var(--mut);margin:12px 0 5px;letter-spacing:.04em}
+  input,select{width:100%;background:#0d1017;border:1px solid var(--line);color:var(--txt);
+        border-radius:10px;padding:11px 12px;font:inherit;font-size:14px}
+  input:focus{outline:none;border-color:#5b2a2f}
+  .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+  button{width:100%;margin-top:18px;background:var(--hot);color:#fff;border:0;border-radius:11px;
+         padding:13px;font:inherit;font-weight:700;cursor:pointer}
+  button:hover{filter:brightness(1.08)}
+  .hint{font-size:12px;color:var(--mut);margin-top:10px;line-height:1.55}
+  .hint a{color:var(--acc);text-decoration:none}
+  .rules{margin:0;padding-left:18px;color:var(--mut);font-size:12.8px;line-height:1.7}
+  .rules b{color:var(--txt);font-weight:600}
+  .job{border-top:1px solid var(--line);padding:16px 0}
+  .job:first-child{border-top:0;padding-top:0}
+  .job h3{margin:0 0 3px;font-size:14px;font-weight:600;word-break:break-all}
+  .meta{color:var(--mut);font-size:11.5px;margin-bottom:10px}
+  video{width:100%;border-radius:12px;background:#000;display:block}
+  .clips{display:flex;gap:12px;flex-wrap:wrap}
+  .clip{width:224px}
+  .clip .t{font-size:11.5px;color:var(--txt);margin-top:6px;line-height:1.4}
+  .clip .d{font-size:10.5px;color:var(--mut);margin-top:2px}
+  .copy{background:#202634;border:1px solid var(--line);color:var(--txt);border-radius:7px;
+        font-size:10.5px;padding:3px 7px;margin-top:6px;cursor:pointer;width:auto}
+  .err{color:#ff8b8b;font-size:12.5px;background:#2a1518;border:1px solid #5b2429;
+       padding:10px 12px;border-radius:10px}
+  .ok{color:#8ef0a8}.bad{color:#ff8b8b}
+  .pill{display:inline-block;font-size:10.5px;border:1px solid var(--line);color:var(--mut);
+        border-radius:999px;padding:2px 8px;margin-left:6px}
+  .top{display:flex;gap:10px;align-items:center;margin-left:auto;flex-wrap:wrap}
+  .top a{color:#0b0b0b;background:var(--acc);text-decoration:none;font-weight:700;font-size:13px;
+         padding:8px 14px;border-radius:9px}
+  .top a.ghost{background:#1d2330;color:var(--txt);border:1px solid var(--line)}
+  footer{margin-top:28px;color:#5d6478;font-size:12px;text-align:center}
+  code{background:#0d1017;border:1px solid var(--line);padding:1px 5px;border-radius:5px;font-size:12px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <span class="dot"></span><h1>Stream House <span>clip studio</span></h1>
+    <div class="top">
+      <a class="ghost" href="../">VA Studio</a>
+      <a class="ghost" href="../editor/">Editor</a>
+    </div>
+  </header>
+  <p class="sub">Campaign format me clips: 9:16 crop, 61% pe word-by-word captions (red
+    accent), hook bar, CTA pill, hashtags, 1080x1920 30fps. Drive link do, job chalao,
+    clips isi page pe aa jayenge. Format top-performing clips se measure karke tune hai
+    (median length 8.5s, 7 of 10 under 12s).</p>
+
+  <div class="grid">
+    <section class="card">
+      <h2>1 &middot; New clip job</h2>
+      <label>Video source (Google Drive / YouTube / direct mp4)</label>
+      <input id="src" placeholder="https://drive.google.com/file/d/FILE_ID/view">
+      <div class="row3">
+        <div><label>Clips</label><input id="cnt" value="3"></div>
+        <div><label>Min sec</label><input id="min" value="7"></div>
+        <div><label>Max sec</label><input id="max" value="16"></div>
+      </div>
+      <label>CTA (on-screen pill + caption line)</label>
+      <input id="cta" value="WATCH THE FULL EP ON @CHICKEN WRAP ENT">
+      <label>Hashtags (campaign mandatory)</label>
+      <input id="tags" value="#streamhouselacwe #streamhousela #cwetv">
+      <label>Hook override (optional, blank = auto)</label>
+      <input id="hook" placeholder="SHE THOUGHT NOBODY WAS WATCHING">
+      <button id="go">Start job &rarr;</button>
+      <p class="hint">Button tumhara GitHub issue khol dega (prefilled). <b>Submit new issue</b>
+        dabao — render khud shuru ho jata hai (~3-5 min). Issue pe comment bhi aa jata hai.
+        Drive link "Anyone with the link" rakhna.</p>
+    </section>
+
+    <section class="card">
+      <h2>2 &middot; Campaign rules baked in</h2>
+      <ul class="rules">
+        <li><b>Length:</b> 7-16s windows (target 10s) — winners ka median 8.5s</li>
+        <li><b>Captions:</b> Anton, uppercase, word-by-word, 61% height, red accent word</li>
+        <li><b>CTA pill:</b> "WATCH THE FULL EP ON @CHICKEN WRAP ENT"</li>
+        <li><b>Hashtags:</b> #streamhouselacwe #streamhousela #cwetv</li>
+        <li><b>Story post:</b> IG story + TikTok story with the campaign QR — manual, campaign link se</li>
+        <li><b>Title/caption:</b> har clip ke saath ready <code>.txt</code> milta hai (title, caption, hashtags)</li>
+      </ul>
+      <p class="hint">Official logo aa jaye to repo me <code>pipeline/sh/logo.png</code> daal do —
+        template khud top-right slot me fit kar dega. Filhaal neutral LOGO slot draw hota hai.</p>
+    </section>
+  </div>
+
+  <section class="card" style="margin-top:18px">
+    <h2>3 &middot; Rendered clips</h2>
+    <div id="jobs"><p class="hint">Loading…</p></div>
+  </section>
+
+  <footer>Free compute: GitHub Actions (2-core) + GitHub Pages. Koi API key nahi, koi paisa nahi.</footer>
+</div>
+
+<script>
+const OWNER = 'harixali96-beep', REPO = 'va-video-agent';
+
+document.getElementById('go').onclick = () => {
+  const src = document.getElementById('src').value.trim();
+  if (!src) { document.getElementById('src').focus(); return; }
+  const body = [
+    'source: ' + src,
+    'count: ' + document.getElementById('cnt').value.trim(),
+    'min: ' + document.getElementById('min').value.trim(),
+    'max: ' + document.getElementById('max').value.trim(),
+    'cta: ' + document.getElementById('cta').value.trim(),
+    'hashtags: ' + document.getElementById('tags').value.trim(),
+    'hook: ' + document.getElementById('hook').value.trim(),
+  ].join('\n');
+  const url = `https://github.com/${OWNER}/${REPO}/issues/new?title=${encodeURIComponent('SH CLIP JOB')}`
+            + `&body=${encodeURIComponent(body)}`;
+  window.open(url, '_blank');
+};
+
+function esc(s) {
+  return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[c]));
+}
+
+function copyBtn(text) {
+  const b = document.createElement('button');
+  b.className = 'copy';
+  b.textContent = 'copy caption';
+  b.onclick = () => {
+    navigator.clipboard.writeText(text || '').then(() => {
+      b.textContent = 'copied';
+      setTimeout(() => b.textContent = 'copy caption', 1400);
+    });
+  };
+  return b;
+}
+
+async function load() {
+  const box = document.getElementById('jobs');
+  try {
+    const r = await fetch('../shclips.json?t=' + Date.now());
+    if (!r.ok) throw new Error('shclips.json ' + r.status);
+    const data = await r.json();
+    const jobs = (data.jobs || []);
+    if (!jobs.length) {
+      box.innerHTML = '<p class="hint">Abhi koi campaign clip nahi. Upar se job shuru karo.</p>';
+      return;
+    }
+    box.innerHTML = '';
+    for (const j of jobs) {
+      const el = document.createElement('div');
+      el.className = 'job';
+      const when = (j.when || '').replace('T', ' ').replace('Z', ' UTC');
+      const head = document.createElement('h3');
+      head.innerHTML = esc(j.source || '(no source)') + `<span class="pill">${j.clips.length} clips</span>`;
+      const meta = document.createElement('div');
+      meta.className = 'meta';
+      meta.textContent = `${when} · ${j.min}-${j.max}s · CTA: ${j.cta || ''}`;
+      el.appendChild(head); el.appendChild(meta);
+      if (j.error) {
+        const e = document.createElement('div');
+        e.className = 'err';
+        e.textContent = j.error;
+        el.appendChild(e);
+      }
+      const row = document.createElement('div');
+      row.className = 'clips';
+      for (const c of j.clips) {
+        const card = document.createElement('div');
+        card.className = 'clip';
+        const v = document.createElement('video');
+        v.controls = true; v.preload = 'metadata'; v.playsInline = true;
+        v.src = '../' + c.file;
+        const t = document.createElement('div');
+        t.className = 't';
+        t.textContent = c.title || c.hook || '';
+        const d = document.createElement('div');
+        d.className = 'd';
+        d.innerHTML = `${c.duration}s · ` + (c.qa_ok
+          ? '<span class="ok">QA pass</span>'
+          : '<span class="bad">QA: ' + esc((c.qa_issues || []).join(', ')) + '</span>');
+        card.appendChild(v); card.appendChild(t); card.appendChild(d);
+        card.appendChild(copyBtn((c.caption || '') + (c.hashtags ? '\n' + c.hashtags : '')));
+        row.appendChild(card);
+      }
+      el.appendChild(row);
+      box.appendChild(el);
+    }
+  } catch (e) {
+    box.innerHTML = '<div class="err">Gallery load nahi hui: ' + esc(e.message) + '</div>';
+  }
+}
+load();
+setInterval(load, 60000);
+</script>
+</body>
+</html>
