@@ -1,0 +1,24 @@
+[Script Info]
+ScriptType: v4.00+
+WrapStyle: 2
+ScaledBorderAndShadow: yes
+PlayResX: 1080
+PlayResY: 1920
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Cap,Anton,108,&H00FFFFFF,&H000000FF,&H00000000,&H64000000,-1,0,0,0,100,100,1,0,1,11,0,2,70,70,560,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.18,0:00:00.92,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}ALRIGHT BRO NOT
+Dialogue: 0,0:00:00.92,0:00:01.76,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}ANTHONY SO ME
+Dialogue: 0,0:00:01.76,0:00:02.62,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}AND EXPEDIA HAVE
+Dialogue: 0,0:00:02.62,0:00:03.38,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}BEEN LOOKING FOR
+Dialogue: 0,0:00:03.38,0:00:03.98,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}PEOPLE WITH SOME
+Dialogue: 0,0:00:03.98,0:00:04.74,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}REALLY SPECIAL TRAVEL
+Dialogue: 0,0:00:04.74,0:00:06.06,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}DROP TRAVEL DREAMS
+Dialogue: 0,0:00:06.06,0:00:07.20,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}AND THEY GIVE
+Dialogue: 0,0:00:07.20,0:00:07.66,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}THEM THE {\c&H0000FFFF}BEST{\c&H00FFFFFF}
+Dialogue: 0,0:00:07.66,0:00:08.64,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}POSSIBLE AND YOU
+Dialogue: 0,0:00:08.64,0:00:08.88,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}SUBMITTED

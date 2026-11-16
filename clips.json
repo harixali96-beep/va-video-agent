@@ -1,6 +1,48 @@
 {
  "jobs": [
   {
+   "id": "43964329571",
+   "when": "2026-11-16T21:51:05Z",
+   "source": "https://drive.google.com/file/d/1odgkfHD1i8mQXvEb00ljpi1Bnq1fuluW/view?usp=drivesdk",
+   "length": 10.0,
+   "count": 3,
+   "cta": "hashtags:",
+   "hashtags": "",
+   "clips": [
+    {
+     "file": "clips/43964329571/clip01_and-i-look-and-i-looked-over-all-of-the-.mp4",
+     "pack": "clips/43964329571/clip01_and-i-look-and-i-looked-over-all-of-the-.txt",
+     "hook": "And I look and I looked over all of the stories",
+     "duration": 10.22,
+     "start": 56.01,
+     "end": 66.23,
+     "qa_ok": true,
+     "qa_issues": []
+    },
+    {
+     "file": "clips/43964329571/clip02_okay-now-look-that-s-thousands-of-people.mp4",
+     "pack": "clips/43964329571/clip02_okay-now-look-that-s-thousands-of-people.txt",
+     "hook": "okay Now look that's thousands of people with their own\u2026",
+     "duration": 10.17,
+     "start": 95.93,
+     "end": 106.1,
+     "qa_ok": true,
+     "qa_issues": []
+    },
+    {
+     "file": "clips/43964329571/clip03_alright-bro-not-anthony-so-me-and-expedi.mp4",
+     "pack": "clips/43964329571/clip03_alright-bro-not-anthony-so-me-and-expedi.txt",
+     "hook": "Alright bro not Anthony so me and Expedia have been looking\u2026",
+     "duration": 9.06,
+     "start": 224.21,
+     "end": 233.27,
+     "qa_ok": true,
+     "qa_issues": []
+    }
+   ],
+   "error": ""
+  },
+  {
    "id": "43962751643",
    "when": "2026-11-16T21:10:22Z",
    "source": "https://drive.google.com/file/d/1Hu0RqheLzu0vMPRGinEB9o2UHjlaIfxH/view?usp=drivesdk",
