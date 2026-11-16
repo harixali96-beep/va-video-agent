@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Render clips on a GitHub Actions runner from an issue body or workflow inputs."""
-import json, os, re, shutil, sys, traceback
+import json, os, re, shutil, sys, time, traceback
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
@@ -28,7 +28,8 @@ def parse():
     count = int(os.environ.get("IN_COUNT") or field(body, "count", "2"))
     cta = os.environ.get("IN_CTA") or field(body, "cta", "")
     tags = os.environ.get("IN_HASHTAGS") or field(body, "hashtags", "")
-    return src, length, count, cta, tags
+    hookline = os.environ.get("IN_HOOK") or field(body, "hook", "")
+    return src, length, count, cta, tags, hookline
 
 
 def load_index():
@@ -45,11 +46,15 @@ def save_index(idx):
 
 
 def main():
-    src, length, count, cta, tags = parse()
+    src, length, count, cta, tags, hookline = parse()
     job_id = os.environ.get("GITHUB_RUN_ID", "local")
-    entry = {"id": job_id, "when": os.environ.get("JOB_DATE", ""), "source": src,
+    wi = int(os.environ.get("WORKER_INDEX", "0") or 0)
+    wn = max(1, int(os.environ.get("WORKERS", "1") or 1))
+    if wn > 1:
+        job_id = f"{job_id}-w{wi}"
+    entry = {"id": job_id, "when": os.environ.get("JOB_DATE") or time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()), "source": src,
              "length": length, "count": count, "cta": cta, "hashtags": tags,
-             "clips": [], "error": ""}
+             "worker": wi, "workers": wn, "clips": [], "error": ""}
     idx = load_index()
     try:
         if not src:
@@ -66,14 +71,16 @@ def main():
         transcript = va.transcribe(video, os.environ.get("VA_ASR", "base.en"), cache_dir=work)
         scenes = va.detect_scenes(video)
         curve = va.energy_curve(video)
-        plan = va.plan(video, transcript, scenes, curve, target=length, count=count)
+        plan = va.plan(video, transcript, scenes, curve, target=length, count=count * wn)
+        if wn > 1:
+            plan = plan[wi::wn][:count]
         out_dir = CLIPS_DIR / job_id
         out_dir.mkdir(parents=True, exist_ok=True)
 
         for i, clip in enumerate(plan, 1):
             clip = va.snap_to_sentences(clip, transcript["words"], dur=va.probe(video)["duration"])
             plan[i - 1] = clip
-            hook = va.make_hook(clip, transcript["words"])
+            hook = hookline or va.make_hook(clip, transcript["words"])
             out = out_dir / f"clip{i:02d}_{va.slug(hook)}.mp4"
             brand = {"hook": hook, "cta": cta, "hashtags": tags, "hook_bar": True,
                      "highlight": "&H0000FFFF"}
@@ -92,8 +99,12 @@ def main():
         traceback.print_exc()
         print(f"VA_ERROR_MESSAGE={entry['error']}")
 
-    idx["jobs"] = ([entry] + [j for j in idx.get("jobs", []) if j.get("id") != job_id])[:25]
-    save_index(idx)
+    part_dir = REPO_ROOT / "clips.partial"
+    part_dir.mkdir(exist_ok=True)
+    (part_dir / f"{job_id}.json").write_text(json.dumps(entry, indent=1))
+    if wn == 1:
+        idx["jobs"] = ([entry] + [j for j in idx.get("jobs", []) if j.get("id") != job_id])[:25]
+        save_index(idx)
     print(json.dumps(entry, indent=1))
 
 

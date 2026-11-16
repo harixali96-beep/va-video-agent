@@ -9,7 +9,7 @@ on:
         required: true
       length:
         description: 'seconds per clip'
-        default: '30'
+        default: '10'
       count:
         description: 'how many clips'
         default: '2'
@@ -19,6 +19,12 @@ on:
       hashtags:
         description: 'hashtags'
         default: ''
+      hook:
+        description: 'hook text override'
+        default: ''
+      workers:
+        description: 'parallel runners (1-10)'
+        default: '1'
 
 permissions:
   contents: write
@@ -29,11 +35,43 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  # figures out how many parallel runners this request wants
+  prep:
+    runs-on: ubuntu-latest
+    outputs:
+      list: ${{ steps.s.outputs.list }}
+      count: ${{ steps.s.outputs.count }}
+    steps:
+      - id: s
+        env:
+          ISSUE_BODY: ${{ github.event.issue.body }}
+          IN_WORKERS: ${{ github.event.inputs.workers }}
+        run: |
+          set -e
+          N=""
+          if [ -n "$IN_WORKERS" ]; then
+            N="$IN_WORKERS"
+          elif [ -n "$ISSUE_BODY" ]; then
+            N=$(printf '%s\n' "$ISSUE_BODY" | grep -iEo '^[[:space:]]*workers[[:space:]]*[:\-][[:space:]]*[0-9]+' | grep -Eo '[0-9]+' | head -1 || true)
+          fi
+          case "$N" in ''|*[!0-9]*) N=1 ;; esac
+          if [ "$N" -lt 1 ]; then N=1; fi
+          if [ "$N" -gt 10 ]; then N=10; fi
+          LIST=$(python3 -c "import json;print(json.dumps(list(range($N))))")
+          echo "workers=$N list=$LIST"
+          echo "count=$N" >> $GITHUB_OUTPUT
+          echo "list=$LIST" >> $GITHUB_OUTPUT
+
   render:
-    # only clip jobs, not every issue
+    needs: prep
     if: github.event_name == 'workflow_dispatch' || contains(github.event.issue.title, 'CLIP')
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      max-parallel: 10
+      matrix:
+        worker: ${{ fromJSON(needs.prep.outputs.list) }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -61,20 +99,49 @@ jobs:
           IN_COUNT: ${{ github.event.inputs.count }}
           IN_CTA: ${{ github.event.inputs.cta }}
           IN_HASHTAGS: ${{ github.event.inputs.hashtags }}
+          IN_HOOK: ${{ github.event.inputs.hook }}
+          WORKER_INDEX: ${{ matrix.worker }}
+          WORKERS: ${{ needs.prep.outputs.count }}
           VA_WORK: ${{ runner.temp }}/va
-          JOB_DATE: ${{ github.event.repository.pushed_at }}
           VA_ASR: base.en
         run: python3 pipeline/clip_job.py
 
-      - name: publish to site
+      - name: publish this worker's clips
         run: |
           git config user.name "va-agent"
           git config user.email "va-agent@users.noreply.github.com"
-          git add clips clips.json
-          if git diff --cached --quiet; then echo "nothing to publish"; else
-            git commit -m "clips: ${{ github.run_id }}"
-            git pull --rebase --autostash
-            git push
+          git add clips clips.partial
+          if git diff --cached --quiet; then echo "nothing to publish"; exit 0; fi
+          git commit -m "clips: ${{ github.run_id }} w${{ matrix.worker }}"
+          for i in 1 2 3 4 5; do
+            git pull --rebase --autostash && git push && break
+            echo "push retry $i"; sleep $((i*3))
+          done
+
+  publish:
+    needs: render
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: merge worker results into the gallery
+        run: python3 pipeline/publish.py
+
+      - name: commit gallery
+        run: |
+          git config user.name "va-agent"
+          git config user.email "va-agent@users.noreply.github.com"
+          git add clips.json clips.partial
+          if git diff --cached --quiet; then echo "gallery already current"; else
+            git commit -m "gallery: ${{ github.run_id }}"
+            for i in 1 2 3 4 5; do
+              git pull --rebase --autostash && git push && break
+              echo "push retry $i"; sleep $((i*3))
+            done
           fi
 
       - name: comment on request
@@ -83,4 +150,4 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           gh issue comment ${{ github.event.issue.number }} --repo ${{ github.repository }} \
-            --body "Clips ready: https://harixali96-beep.github.io/va-video-agent/ (site refresh karo)"
+            --body "Clips ready: https://harixali96-beep.github.io/va-video-agent/ (site refresh karo, ya seedha https://harixali96-beep.github.io/va-video-agent/editor/ me edit karo)"

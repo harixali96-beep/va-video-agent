@@ -1,0 +1,462 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>VA Editor - chat + timeline</title>
+<style>
+:root{--bg:#0b0d12;--p:#12151d;--p2:#171b26;--l:#242a38;--t:#eef1f7;--m:#8b93a7;--a:#ffd43b;--r:#ff4d4d;--g:#53d38a}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--t);font:14px/1.5 system-ui,-apple-system,sans-serif;height:100vh;display:flex;flex-direction:column;overflow:hidden}
+header{display:flex;align-items:center;gap:12px;padding:10px 16px;border-bottom:1px solid var(--l);flex:none}
+header b{font-size:17px}header b span{color:var(--a)}
+header .small{font-size:12px;color:var(--m)}
+header a{color:var(--m);font-size:12px;text-decoration:none;margin-left:auto}
+main{flex:1;display:grid;grid-template-columns:350px 1fr;min-height:0}
+@media(max-width:900px){main{grid-template-columns:1fr;grid-template-rows:auto 1fr}body{height:auto;overflow:auto}}
+.chat{border-right:1px solid var(--l);display:flex;flex-direction:column;min-height:0;background:var(--p)}
+.log{flex:1;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:8px;min-height:150px}
+.msg{padding:8px 11px;border-radius:10px;white-space:pre-wrap;font-size:13px;max-width:95%;word-wrap:break-word}
+.bot{background:var(--p2);border:1px solid var(--l);align-self:flex-start}
+.me{background:#26354a;align-self:flex-end}
+.act{font:11.5px/1.45 ui-monospace,SFMono-Regular,monospace;color:#7f8aa3;background:#0e1118;border:1px dashed #2b3345;align-self:flex-start;max-width:97%}
+.row{display:flex;gap:8px;padding:10px;border-top:1px solid var(--l);flex:none}
+input,select,textarea{background:#0d1017;border:1px solid var(--l);color:var(--t);border-radius:8px;padding:9px 10px;font:inherit}
+.row input{flex:1;min-width:0}
+button{background:var(--a);color:#0b0b0b;border:0;border-radius:8px;padding:9px 14px;font:inherit;font-weight:700;cursor:pointer}
+button.s{background:#222a3a;color:var(--t);font-weight:500;border:1px solid var(--l)}
+button:disabled{opacity:.5;cursor:default}
+.ed{display:flex;flex-direction:column;min-height:0;padding:12px;gap:10px;overflow-y:auto}
+.top{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.stage{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:start}
+@media(max-width:760px){.stage{grid-template-columns:1fr}}
+.vwrap{position:relative;width:230px;aspect-ratio:9/16;background:#000;border-radius:12px;overflow:hidden;border:1px solid var(--l);flex:none}
+@media(max-width:760px){.vwrap{width:100%;max-width:260px;margin:0 auto}}
+video{width:100%;height:100%;object-fit:contain;display:block;background:#000}
+.cap{position:absolute;left:4%;right:4%;bottom:12%;text-align:center;font:900 19px Anton,Impact,sans-serif;text-transform:uppercase;
+ color:#fff;-webkit-text-stroke:1.1px #000;text-shadow:0 2px 0 #000;pointer-events:none;line-height:1.15}
+.hook{position:absolute;top:4%;left:4%;right:4%;background:#000;color:#fff;font:700 11.5px system-ui;padding:5px 7px;border-radius:5px;display:none;text-align:center}
+.cta{position:absolute;bottom:3.5%;left:6%;right:6%;background:#ff4d4d;color:#000;font:800 10.5px system-ui;padding:5px 7px;border-radius:999px;display:none;text-align:center}
+.tl{background:var(--p);border:1px solid var(--l);border-radius:12px;padding:10px;overflow-x:auto;min-height:150px}
+.ruler{position:relative;height:18px;border-bottom:1px solid var(--l);margin-left:74px;font-size:10px;color:var(--m)}
+.track{display:flex;align-items:center;height:36px;margin-top:6px}
+.tn{width:74px;font-size:10.5px;color:var(--m);flex:none;letter-spacing:.06em}
+.lane{position:relative;flex:1;height:30px;background:#0d1017;border-radius:6px;min-width:520px;cursor:crosshair}
+.blk{position:absolute;top:2px;height:26px;border-radius:5px;font-size:10.5px;padding:4px 6px;overflow:hidden;white-space:nowrap;cursor:grab;user-select:none;color:#0b0b0b;font-weight:600;display:flex;align-items:center}
+.blk.v{background:#6aa8ff}.blk.c{background:var(--a)}.blk.f{background:var(--g)}
+.blk .h{position:absolute;top:0;bottom:0;width:8px;background:#0006;cursor:ew-resize}
+.blk .h.l{left:0;border-radius:5px 0 0 5px}.blk .h.r{right:0;border-radius:0 5px 5px 0}
+.play{position:absolute;top:18px;bottom:4px;width:2px;background:var(--r);margin-left:74px;pointer-events:none}
+.sel{outline:2px solid #fff;outline-offset:1px}
+.small{font-size:12px;color:var(--m)}
+.pill{background:#1c2332;border:1px solid var(--l);border-radius:999px;padding:3px 10px;font-size:12px;cursor:pointer}
+.pill:hover{border-color:#3d4a66}
+.stat{font-size:12px;color:var(--m);min-height:18px}
+.dl a{color:var(--a);font-size:14.5px;font-weight:600}
+.warn{color:#ffb4b4}
+</style></head><body>
+<header><b>VA <span>Editor</span></b><span class="small">chat se bolo, ya timeline se khud edit karo. Sab kuch browser me, free.</span><a href="../">&larr; Studio</a></header>
+<main>
+<section class="chat">
+  <div class="log" id="log"><div class="msg bot">Bolo bhai. Video upload karo (ya Studio se bane clip pe "Edit" dabao). Phir command likho, jaise:
+"pehle 12 second rakho, 3 pe split, caption WAIT FOR IT, whoosh at 0, pop at 2, hook BIG MOMENT, cta WATCH NOW, 9:16, export"</div></div>
+  <div class="row"><input id="in" placeholder="kya edit karna hai?"><button id="send">Go</button></div>
+  <div class="row" style="padding-top:0;flex-wrap:wrap;gap:6px">
+    <span class="pill" data-q="first 10 seconds rakho, hook BIG MOMENT, cta WATCH NOW, 9:16">10s hook clip</span>
+    <span class="pill" data-q="whoosh at 0, pop at 2, hit at 4">sfx</span>
+    <span class="pill" data-q="captions word by word for THIS IS CRAZY from 0 to 2 seconds">word captions</span>
+    <span class="pill" data-q="make it 1.2x speed">speed</span>
+    <span class="pill" data-q="export">export</span>
+  </div>
+</section>
+<section class="ed">
+  <div class="top">
+    <input type="file" id="file" accept="video/*">
+    <button class="s" id="split">Split @ playhead</button>
+    <button class="s" id="del">Delete block</button>
+    <button class="s" id="undo">Undo</button>
+    <button id="exp">Export MP4</button>
+    <span class="stat" id="stat"></span>
+  </div>
+  <div class="stage">
+    <div class="vwrap">
+      <video id="v" playsinline controls></video>
+      <div class="hook" id="hk"></div>
+      <div class="cap" id="cp"></div>
+      <div class="cta" id="ct">Watch the full ep</div>
+    </div>
+    <div>
+      <div class="tl">
+        <div class="small" style="margin-bottom:6px">Timeline: block drag karo (move), kinaare pakad ke trim karo, lane pe click karke playhead le jao. Red line = playhead.</div>
+        <div class="ruler" id="ruler"></div><div class="play" id="ph"></div>
+        <div class="track"><div class="tn">VIDEO</div><div class="lane" id="lv"></div></div>
+        <div class="track"><div class="tn">CAPTION</div><div class="lane" id="lc"></div></div>
+        <div class="track"><div class="tn">SFX</div><div class="lane" id="lf"></div></div>
+      </div>
+      <div class="small" id="info" style="margin-top:8px">Video load karo.</div>
+      <div class="dl" id="dl" style="margin-top:8px"></div>
+    </div>
+  </div>
+</section>
+</main>
+<script src="vendor/ffmpeg.js"></script>
+<script>
+const $=id=>document.getElementById(id);
+const SFX=['whoosh','swish','pop','impact','hit','riser','click'];
+const S={file:null,url:'',dur:0,segs:[],caps:[],sfx:[],hook:'',cta:'',speed:1,vertical:false,sel:null,ff:null,name:'va-edit'};
+const undo=[];
+const snap=()=>{undo.push(JSON.stringify({segs:S.segs,caps:S.caps,sfx:S.sfx,hook:S.hook,cta:S.cta,speed:S.speed,vertical:S.vertical}));if(undo.length>40)undo.shift()};
+const log=(t,k)=>{const d=document.createElement('div');d.className='msg '+(k||'bot');d.textContent=t;$('log').appendChild(d);$('log').scrollTop=1e9};
+const stat=t=>$('stat').textContent=t||'';
+const PX=()=>Math.max(6,Math.min(90,860/Math.max(S.dur||1,1)));
+const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
+
+/* ---------- load ---------- */
+function loadBlob(file,name){S.file=file;S.name=(name||'va-edit').replace(/\.[^.]+$/,'');S.url=URL.createObjectURL(file);
+ $('v').src=S.url;
+ $('v').onloadedmetadata=()=>{S.dur=$('v').duration||0;S.segs=[{a:0,b:S.dur}];S.caps=[];S.sfx=[];S.hook='';S.cta='';S.speed=1;S.vertical=false;S.sel=null;
+  $('v').playbackRate=1;cont(0);draw();log('Video load: '+S.dur.toFixed(2)+'s','act')};
+}
+$('file').onchange=e=>{const f=e.target.files[0];if(f)loadBlob(f,f.name)};
+async function loadUrl(u,name){try{stat('video laa raha hoon...');const r=await fetch(u);if(!r.ok)throw new Error('HTTP '+r.status);
+ const b=await r.blob();loadBlob(b,name||u.split('/').pop());stat('')}catch(e){log('Video load fail: '+e,'bot')}}
+const qp=new URLSearchParams(location.search);
+if(qp.get('clip'))loadUrl(qp.get('clip'),(qp.get('clip')||'').split('/').pop());
+
+/* ---------- timeline ---------- */
+function draw(){
+ const px=S.dur?PX():20;
+ $('lv').innerHTML='';$('lc').innerHTML='';$('lf').innerHTML='';
+ ['lv','lc','lf'].forEach(i=>{$(i).style.width=(S.dur*px)+'px'});
+ let r='';const step=Math.max(1,Math.round(S.dur/10));
+ for(let t=0;t<=S.dur+.01;t+=step)r+=`<span style="position:absolute;left:${t*px}px">${t}s</span>`;
+ $('ruler').innerHTML=r;
+ S.segs.forEach((s,i)=>blk('lv','v',`seg ${i+1} · ${(s.b-s.a).toFixed(1)}s`,s.a,s.b,{type:'v',i}));
+ S.caps.forEach((c,i)=>blk('lc','c',c.text,c.t0,Math.max(c.t1,c.t0+.25),{type:'c',i}));
+ S.sfx.forEach((c,i)=>blk('lf','f',c.name,c.t,c.t+.5,{type:'f',i}));
+ const keep=S.segs.reduce((n,s)=>n+(s.b-s.a),0);
+ $('info').textContent=S.dur?`source ${S.dur.toFixed(1)}s · output ${(keep/S.speed).toFixed(1)}s · ${S.segs.length} block · ${S.caps.length} captions · ${S.sfx.length} sfx · ${S.vertical?'9:16':'original'}${S.speed!=1?' · '+S.speed+'x':''}`:'Video load karo.';
+ $('hk').textContent=S.hook;$('hk').style.display=S.hook?'block':'none';
+ $('ct').textContent=S.cta;$('ct').style.display=S.cta?'block':'none';
+ $('v').playbackRate=S.speed;
+}
+function blk(lane,cls,label,t0,t1,ref){
+ const px=PX(),d=document.createElement('div');
+ d.className='blk '+cls+((S.sel&&S.sel.type==ref.type&&S.sel.i==ref.i)?' sel':'');
+ d.style.left=(t0*px)+'px';d.style.width=Math.max(12,(t1-t0)*px)+'px';
+ d.innerHTML=`<i class="h l"></i><span style="overflow:hidden;text-overflow:ellipsis">${label}</span><i class="h r"></i>`;
+ d.onmousedown=e=>{
+  S.sel=ref;draw();
+  const mode=e.target.classList.contains('l')?'l':e.target.classList.contains('r')?'r':'m';
+  const x0=e.clientX,o={t0,t1};snap();
+  const mv=ev=>{apply(ref,mode,o,(ev.clientX-x0)/px)};
+  const up=()=>{removeEventListener('mousemove',mv);removeEventListener('mouseup',up);draw()};
+  addEventListener('mousemove',mv);addEventListener('mouseup',up);e.preventDefault();e.stopPropagation();
+ };
+ $(lane).appendChild(d);
+}
+function neigh(i){const p=S.segs[i-1],n=S.segs[i+1];return{a0:p?p.b:0,a1:n?n.a:S.dur}}
+function apply(ref,mode,o,dt){
+ if(ref.type=='v'){
+  const s=S.segs[ref.i];if(!s)return;const nb=neigh(ref.i);
+  const len=o.t1-o.t0;
+  if(mode=='m'){let a=clamp(o.t0+dt,nb.a0,nb.a1-len);s.a=a;s.b=a+len}
+  else if(mode=='l')s.a=clamp(o.t0+dt,nb.a0,o.t1-.2);
+  else s.b=clamp(o.t1+dt,o.t0+.2,nb.a1);
+  $('v').currentTime=S.segs[ref.i].a;
+ } else if(ref.type=='c'){
+  const c=S.caps[ref.i];if(!c)return;
+  if(mode=='m'){const L=o.t1-o.t0;c.t0=clamp(o.t0+dt,0,S.dur-L);c.t1=c.t0+L}
+  else if(mode=='l')c.t0=clamp(o.t0+dt,0,c.t1-.15);else c.t1=clamp(o.t1+dt,c.t0+.15,S.dur);
+ } else {const f=S.sfx[ref.i];if(f)f.t=clamp(f.t+dt,0,S.dur)}
+ draw();
+}
+['lv','lc','lf'].forEach(id=>$(id).onclick=e=>{
+ if(e.target.id!==id)return;const r=$(id).getBoundingClientRect();const t=clamp((e.clientX-r.left)/PX(),0,S.dur);
+ $('v').currentTime=t;$('ph').style.left=(74+t*PX())+'px';
+});
+
+/* ---------- preview ---------- */
+function segAt(t){return S.segs.find(s=>t>=s.a-.02&&t<=s.b)}
+$('v').ontimeupdate=()=>{
+ const t=$('v').currentTime;
+ $('ph').style.left=(74+t*PX())+'px';
+ const c=S.caps.find(c=>t>=c.t0&&t<=c.t1);$('cp').textContent=c?c.text:'';
+ if(!$('v').paused){
+  const s=segAt(t);
+  if(!s){const nx=S.segs.find(x=>x.a>t);if(nx)$('v').currentTime=nx.a;else{$('v').pause();$('v').currentTime=S.segs.length?S.segs[S.segs.length-1].b:0}}
+ }
+};
+$('v').onplay=()=>{const t=$('v').currentTime;if(!segAt(t)){const f=S.segs.find(s=>t<=s.b)||S.segs[0];if(f)$('v').currentTime=f.a}cont(1)};
+$('v').onpause=()=>cont(0);
+let timers=[];
+function cont(on){
+ timers.forEach(clearTimeout);timers=[];
+ if(!on)return;const t0=$('v').currentTime;
+ S.sfx.forEach(f=>{
+  const dt=(f.t-t0)*1000/S.speed;
+  if(dt>=-30&&dt<60000)timers.push(setTimeout(()=>{if(!$('v').paused)new Audio('sfx/'+f.name+'.mp3').play().catch(()=>{})},Math.max(0,dt)));
+ });
+}
+
+/* ---------- buttons ---------- */
+$('split').onclick=()=>{if(!S.dur)return;const t=$('v').currentTime;const i=S.segs.findIndex(s=>t>s.a+.25&&t<s.b-.25);
+ if(i<0){log('Playhead kisi block ke andar nahi hai.','bot');return}
+ snap();const s=S.segs[i];S.segs.splice(i,1,{a:s.a,b:t},{a:t,b:s.b});draw();log('Split @ '+t.toFixed(2)+'s','act')};
+$('del').onclick=()=>{if(!S.sel){log('Pehle koi block select karo.','bot');return}
+ snap();
+ if(S.sel.type=='v'){if(S.segs.length<2){log('Aakhri block delete nahi kar sakta. Pehle split karo.','bot');return}S.segs.splice(S.sel.i,1)}
+ else if(S.sel.type=='c')S.caps.splice(S.sel.i,1);
+ else S.sfx.splice(S.sel.i,1);
+ S.sel=null;draw()};
+$('undo').onclick=()=>{const p=undo.pop();if(!p){log('Undo kuch nahi hai.','bot');return}
+ const o=JSON.parse(p);Object.assign(S,o);S.sel=null;draw();log('Undo.','act')};
+
+/* ---------- tools ---------- */
+const TOOLS={
+ trim:({start=0,end})=>{if(!S.dur)throw Error('no video');const a=clamp(+start,0,S.dur),b=clamp(+(end??S.dur),0,S.dur);
+  if(b-a<.2)throw Error('range too small');snap();S.segs=[{a,b}];S.sel=null;draw();return `keep ${a.toFixed(2)}-${b.toFixed(2)}s`},
+ split:({at})=>{if(!S.dur)throw Error('no video');const t=clamp(+at,0,S.dur),i=S.segs.findIndex(s=>t>s.a+.15&&t<s.b-.15);
+  if(i<0)throw Error('time is not inside a block');snap();const s=S.segs[i];S.segs.splice(i,1,{a:s.a,b:t},{a:t,b:s.b});draw();return 'split at '+t.toFixed(2)+'s'},
+ delete_block:({index=0})=>{if(S.segs.length<2)throw Error('only one block left');snap();S.segs.splice(clamp(index,0,S.segs.length-1)|0,1);draw();return 'block deleted'},
+ add_caption:({text,start,end})=>{if(!text)throw Error('no text');const t0=clamp(+(start??(S.segs[0]?S.segs[0].a:0)),0,S.dur||1e9);
+  const t1=clamp(+(end??(S.dur||t0+2)),0,S.dur||1e9);
+  if(S.caps.some(c=>c.text.toLowerCase()===text.toLowerCase()&&Math.abs(c.t0-t0)<.35))return 'already there';
+  snap();S.caps.push({text:String(text).toUpperCase(),t0,t1:Math.max(t1,t0+.5)});draw();return `caption "${text}" ${t0}-${t1}s`},
+ word_captions:({text,start,end})=>{if(!text)throw Error('no text');const words=String(text).trim().split(/\s+/).filter(Boolean);
+  if(!words.length)throw Error('no words');const t0=clamp(+(start??0),0,S.dur||1e9),t1=clamp(+(end??(S.dur||4)),t0+.5,S.dur||1e9);
+  const step=(t1-t0)/words.length;snap();
+  words.forEach((w,i)=>S.caps.push({text:w.toUpperCase(),t0:t0+i*step,t1:t0+(i+1)*step}));
+  draw();return words.length+' word captions'},
+ add_sfx:({name,at})=>{const n=String(name||'').toLowerCase();
+  if(!SFX.includes(n))throw Error('use one of '+SFX.join(', '));
+  const t=clamp(+(at??0),0,S.dur||1e9);snap();S.sfx.push({name:n,t});draw();return `sfx ${n} @${t}s`},
+ set_hook:({text})=>{if(!text)throw Error('no text');snap();S.hook=String(text).toUpperCase();draw();return 'hook set'},
+ set_cta:({text})=>{if(!text)throw Error('no text');snap();S.cta=String(text).toUpperCase();draw();return 'cta set'},
+ set_speed:({speed})=>{const v=clamp(+speed||1,.5,2);snap();S.speed=v;draw();return 'speed '+v+'x'},
+ make_vertical:()=>{snap();S.vertical=true;draw();return 'vertical 9:16 on'},
+ clear_captions:()=>{snap();S.caps=[];draw();return 'captions cleared'},
+ undo:()=>{$('undo').onclick();return 'undone'},
+ export_mp4:()=>{setTimeout(exportMp4,60);return 'export started'}
+};
+const SCHEMA=[
+ ['trim','keep only one part of the video (seconds, source time)',{start:'number',end:'number'},['start','end']],
+ ['split','cut the video into two blocks at this time',{at:'number'},['at']],
+ ['delete_block','delete a block by index (0 based)',{index:'number'},['index']],
+ ['add_caption','burn one caption line between two times (source seconds)',{text:'string',start:'number',end:'number'},['text','start','end']],
+ ['word_captions','word-by-word captions, one word at a time, for a phrase between two times',{text:'string',start:'number',end:'number'},['text','start','end']],
+ ['add_sfx','place a sound effect. names: '+SFX.join(', '),{name:'string',at:'number'},['name','at']],
+ ['set_hook','big hook line at the top in a black box',{text:'string'},['text']],
+ ['set_cta','call to action pill at the bottom',{text:'string'},['text']],
+ ['set_speed','playback speed 0.5 to 2',{speed:'number'},['speed']],
+ ['make_vertical','crop to 9:16 vertical',{},[]],
+ ['clear_captions','remove all captions',{},[]],
+ ['export_mp4','render and download the final mp4',{},[]]
+].map(([n,d,p,r])=>({type:'function',function:{name:n,description:d,parameters:{type:'object',properties:Object.fromEntries(Object.entries(p).map(([k,v])=>[k,{type:v}])),required:r}}}));
+
+/* ---------- command brain: deterministic parser (instant, zero network) ---------- */
+const NUM='(\\d+(?:\\.\\d+)?)';
+function cleanText(s){
+ let t=String(s||'');
+ t=t.replace(new RegExp(NUM+'\\s*(?:s|sec|secs|second|seconds)?\\s*(?:to|se|tak|-|until)\\s*'+NUM,'gi'),' ');
+ t=t.replace(new RegExp('(?:from|at|@|pe|par)\\s*'+NUM+'\\s*(?:s|sec|secs|second|seconds)?','gi'),' ');
+ t=t.replace(/\b(captions?|captioning|text|likho|likh|word|by|hook|cta|title|burn|lagao|lagado|laga|add|kar|karo|kardo|daalo|daal|de|do|please|bhai|from|tak|until|secs?|seconds?)\b/gi,' ');
+ t=t.replace(/["'\u201c\u201d]/g,' ').replace(/[.,;:!]+/g,' ').replace(/\s+/g,' ').trim();
+ return t.replace(/^for\s+/i,'');
+}
+function rangeIn(clause){
+ let m=clause.match(new RegExp(NUM+'\\s*(?:s|sec|secs|second|seconds)?\\s*(?:to|se|tak|-|until|and)\\s*'+NUM,'i'));
+ if(m)return [+m[1],+m[2]];
+ const nums=[...clause.matchAll(new RegExp('(\\d+(?:\\.\\d+)?)','g'))].map(x=>+x[1]);
+ if(nums.length>=2)return [nums[0],nums[1]];
+ return null;
+}
+function localParse(q){
+ const clauses=String(q).split(/,|;|\band\b|\baur\b|\bthen\b|\bphir\b/i).map(s=>s.trim()).filter(Boolean);
+ const out=[];const seen=new Set();
+ const push=(n,a)=>{const k=n+JSON.stringify(a);if(!seen.has(k)){seen.add(k);out.push([n,a])}};
+ for(const cl of clauses){
+  const c=' '+cl.toLowerCase()+' ';
+  /* sound effects */
+  const fx=SFX.find(n=>c.includes(n));
+  if(fx){
+   const mm=cl.match(new RegExp('(\\d+(?:\\.\\d+)?)',''));
+   push('add_sfx',{name:fx,at:mm?+mm[1]:0});
+   continue;
+  }
+  if(/split|\bcut in two\b|\bdo hisso\b/.test(c)){const r=rangeIn(cl)||[+(cl.match(/(\d+(?:\.\d+)?)/)||[0,0])[1]];push('split',{at:r[0]});continue}
+  if(/word[- ]by[- ]word|word captions?|ek ek word|har word/.test(c)){
+   const r=rangeIn(cl)||[0,Math.min(2.5,S.dur||2.5)];
+   push('word_captions',{text:cleanText(cl),start:r[0],end:r[1]});continue}
+  if(/captions?|text likh|likho|burn text|title likh/.test(c)){
+   const r=rangeIn(cl)||[0,Math.min(3,S.dur||3)];
+   const txt=cleanText(cl);
+   if(txt)push('add_caption',{text:txt,start:r[0],end:r[1]});
+   continue}
+  if(/\bhook\b/.test(c)){push('set_hook',{text:cleanText(cl)});continue}
+  if(/\bcta\b|call to action|end pe likh/.test(c)){push('set_cta',{text:cleanText(cl)});continue}
+  if(/vertical|9:16|9 by 16|reel|shorts|tiktok/.test(c)){push('make_vertical',{});continue}
+  if(/export|render|download|\bbanao\b|\bnikalo\b/.test(c)){push('export_mp4',{});continue}
+  if(/undo|wapas|piche/.test(c)){push('undo',{});continue}
+  if(/delete|hata do|hatao|remove|nikal do/.test(c)&&/block|part|hissa|segment/.test(c)){push('delete_block',{index:0});continue}
+  const sp=cl.match(new RegExp('(\\d+(?:\\.\\d+)?)\\s*x\\b|speed\\s*(\\d+(?:\\.\\d+)?)','i'));
+  if(sp){push('set_speed',{speed:+(sp[1]||sp[2])});continue}
+  if(/trim|rakho|keep|kaat|cut|chhota|short|first|pehle|start|beginning|last|aakhri/.test(c)){
+   const r=rangeIn(cl);
+   if(r)push('trim',{start:r[0],end:r[1]});
+   else{const mm=cl.match(new RegExp(NUM));
+    if(mm){if(/last|aakhri|end se/.test(c))push('trim',{start:Math.max(0,(S.dur||0)-+mm[1]),end:S.dur||+mm[1]});else push('trim',{start:0,end:+mm[1]})}}
+  }
+ }
+ return out;
+}
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+async function callModel(msgs){
+ const ctl=new AbortController();const to=setTimeout(()=>ctl.abort(),15000);
+ try{
+  const r=await fetch('https://text.pollinations.ai/openai',{method:'POST',signal:ctl.signal,headers:{'Content-Type':'application/json'},
+   body:JSON.stringify({model:'openai',messages:msgs,tools:SCHEMA,tool_choice:'auto'})});
+  const j=await r.json();
+  if(j.choices&&j.choices[0])return j.choices[0].message;
+  throw Error((j.error&&j.error.message)||'model busy');
+ } finally {clearTimeout(to)}
+}
+async function chat(q){
+ if(!S.dur)return 'Pehle video upload karo (ya Studio se bane clip pe Edit dabao).';
+ const keep=S.segs.reduce((n,s)=>n+(s.b-s.a),0);
+ // 1) deterministic parse first: instant and always works
+ let calls=localParse(q);
+ let note='';
+ // 2) only ask the free model when the local brain understood nothing
+ if(!calls.length){
+  const sys=`You are the editing brain of a browser video editor. The user writes Hinglish or English.
+Source video length ${S.dur.toFixed(2)}s. Current output ${keep.toFixed(2)}s over ${S.segs.length} block(s).
+Time values are SOURCE seconds between 0 and ${S.dur.toFixed(2)}.
+Do the WHOLE edit in one turn: call every tool needed, in order (trim/split first, then captions, sfx, hook, cta, speed, vertical, export last).
+Caption text uppercase, max 6 words. Only call export_mp4 if the user asks to export.`;
+  try{
+   const m=await callModel([{role:'system',content:sys},{role:'user',content:q}]);
+   if(m&&m.tool_calls&&m.tool_calls.length)calls=m.tool_calls.map(c=>{let a={};try{a=JSON.parse(c.function.arguments||'{}')}catch(e){}return [c.function.name,a]});
+   note=(m&&m.content)||'';
+  }catch(e){log('AI model abhi busy hai (free limit), local brain chal raha hai','act')}
+ }
+ if(!calls.length)return note||('Samajh nahi aaya. Try: "pehle 12 second rakho, caption WAIT FOR IT 0.2 to 2, whoosh at 0, hook BIG MOMENT, cta WATCH NOW, 9:16, export"');
+ const done=[];
+ for(const [n,a] of calls){
+  let out;try{out=TOOLS[n]?TOOLS[n](a):'unknown tool'}catch(e){out='skip: '+e.message}
+  done.push(n);log('> '+n+' '+JSON.stringify(a)+'\n  '+out,'act');
+ }
+ stat('');
+ return note||('Ho gaya ('+done.length+' steps): '+done.join(' → '));
+}
+
+
+async function send(q){
+ q=(q||$('in').value).trim();if(!q)return;$('in').value='';log(q,'me');
+ if(!S.dur){log('Pehle video upload karo.','bot');return}
+ $('send').disabled=true;
+ try{log(await chat(q),'bot')}catch(e){log('Model error: '+e,'bot')}
+ $('send').disabled=false;
+}
+$('send').onclick=()=>send();
+$('in').onkeydown=e=>{if(e.key==='Enter')send()};
+document.querySelectorAll('.pill').forEach(p=>p.onclick=()=>send(p.dataset.q));
+
+/* ---------- export ---------- */
+async function getFF(){
+ if(S.ff)return S.ff;
+ const ff=new FFmpegWASM.FFmpeg();
+ ff.on('progress',e=>stat('render '+Math.round((e.progress||0)*100)+'%'));
+ ff.on('log',e=>{S.ffLog=(S.ffLog||[]).concat(e.message).slice(-250)});
+ const u=new URL('vendor/',location.href).href;
+ stat('engine load (32MB, pehli baar)...');
+ await ff.load({coreURL:u+'ffmpeg-core.js',wasmURL:u+'ffmpeg-core.wasm'});
+ S.ff=ff;return ff;
+}
+function wrap(text,max){
+ const words=String(text).split(/\s+/).filter(Boolean),lines=[];let cur='';
+ for(const w of words){if((cur+' '+w).trim().length>max){if(cur)lines.push(cur);cur=w}else cur=(cur?cur+' ':'')+w}
+ if(cur)lines.push(cur);
+ return lines.slice(0,3);
+}
+function toOut(t,segs){let acc=0;for(const s of segs){const d=s.b-s.a;if(t<=s.a)return acc;if(t<s.b)return acc+(t-s.a);acc+=d}return acc}
+async function exportMp4(){
+ if(S.exporting)return;
+ if(!S.file||!S.dur){log('Pehle video upload karo.','bot');return}
+ S.exporting=true;
+ $('exp').disabled=true;$('dl').innerHTML='';stat('preparing...');
+ try{
+  const ff=await getFF();
+  await ff.writeFile('in.mp4',new Uint8Array(await S.file.arrayBuffer()));
+  await ff.writeFile('f.ttf',new Uint8Array(await (await fetch('vendor/font.ttf')).arrayBuffer()));
+  let ti=0;const texts=[];
+  const addText=s=>{const n='t'+(ti++)+'.txt';texts.push([n,s]);return n};
+  const ok=n=>n&&texts.some(t=>t[0]==n);
+  const hookF=S.hook?addText(wrap(S.hook,26).join('\n')):'';
+  const ctaF=S.cta?addText(wrap(S.cta,34).join('\n')):'';
+  const capF=S.caps.map(c=>addText(wrap(c.text,22).join('\n')));
+  for(const [n,s] of texts)await ff.writeFile(n,s);
+  const sfxF=[];
+  for(const s of S.sfx){
+   if(!sfxF.includes(s.name)){
+    await ff.writeFile('s_'+s.name+'.mp3',new Uint8Array(await (await fetch('sfx/'+s.name+'.mp3')).arrayBuffer()));
+    sfxF.push(s.name);
+   }
+  }
+  const build=withAudio=>{
+   const segs=S.segs.slice().sort((x,y)=>x.a-y.a);
+   const f=[];
+   const vin=segs.map((s,i)=>{f.push(`[0:v]trim=start=${s.a.toFixed(3)}:end=${s.b.toFixed(3)},setpts=PTS-STARTPTS[sv${i}]`);return `[sv${i}]`}).join('');
+   f.push(`${vin}concat=n=${segs.length}:v=1:a=0[vc]`);
+   const chain=[];
+   if(S.vertical)chain.push('crop=ih*9/16:ih','scale=1080:1920:flags=lanczos');
+   if(S.speed!=1)chain.push('setpts=PTS/'+S.speed);
+   if(ok(hookF))chain.push(`drawtext=fontfile=f.ttf:textfile=${hookF}:fontsize=52:fontcolor=white:box=1:boxcolor=black@1:boxborderw=18:line_spacing=8:x=(w-text_w)/2:y=h*0.045`);
+   S.caps.forEach((c,i)=>{
+    if(!ok(capF[i]))return;const lineH=92,n=wrap(c.text,22).length;
+    const y=`(h*0.745-${(n-1)*lineH/2})`;
+    const a=(toOut(c.t0,segs)/S.speed).toFixed(2),b=(toOut(c.t1,segs)/S.speed).toFixed(2);
+    chain.push(`drawtext=fontfile=f.ttf:textfile=${capF[i]}:fontsize=76:fontcolor=white:borderw=6:bordercolor=black:line_spacing=10:x=(w-text_w)/2:y=${y}:enable='between(t,${a},${b})'`);
+   });
+   if(ok(ctaF))chain.push(`drawtext=fontfile=f.ttf:textfile=${ctaF}:fontsize=40:fontcolor=black:box=1:boxcolor=0xff4d4d:boxborderw=16:line_spacing=6:x=(w-text_w)/2:y=h*0.885`);
+   f.push(`[vc]${chain.length?chain.join(','):'null'}[vout]`);
+   const args=[];
+   if(withAudio){
+    const ain=segs.map((s,i)=>{f.push(`[0:a]atrim=start=${s.a.toFixed(3)}:end=${s.b.toFixed(3)},asetpts=PTS-STARTPTS[sa${i}]`);return `[sa${i}]`}).join('');
+    f.push(`${ain}concat=n=${segs.length}:v=0:a=1[ac]`);
+    let ac='[ac]';
+    if(S.speed!=1){f.push(`[ac]atempo=${S.speed}[acs]`);ac='[acs]'}
+    if(S.sfx.length){
+     f.push(`${ac}anull[voice]`);
+     const labels=['[voice]'];
+     S.sfx.forEach((s,i)=>{
+      const idx=sfxF.indexOf(s.name)+1;
+      const d=Math.round(Math.max(0,toOut(s.t,segs)/S.speed)*1000);
+      f.push(`[${idx}:a]adelay=${d}|${d},volume=0.75[s${i}]`);labels.push(`[s${i}]`);
+     });
+     f.push(`${labels.join('')}amix=inputs=${labels.length}:normalize=0:duration=first[aout]`);
+    } else f.push(`${ac}anull[aout]`);
+   }
+   args.push('-i','in.mp4');
+   if(withAudio)for(const n of sfxF)args.push('-i','s_'+n+'.mp3');
+   args.push('-filter_complex',f.join(';'),'-map','[vout]');
+   if(withAudio)args.push('-map','[aout]','-c:a','aac','-b:a','128k','-shortest');
+   args.push('-c:v','libx264','-preset','ultrafast','-crf','23','-pix_fmt','yuv420p','-movflags','+faststart','out.mp4');
+   return args;
+  };
+  let withAudio=true;
+  stat('render shuru...');S.phase='exec';
+  try{await ff.exec(build(true))}
+  catch(err){console.log('audio pass failed',err);withAudio=false;stat('bina audio try...');await ff.exec(build(false))}
+  const d=await ff.readFile('out.mp4');
+  if(!d||!d.length)throw Error('empty output');
+  const url=URL.createObjectURL(new Blob([d.buffer],{type:'video/mp4'}));
+  $('dl').innerHTML=`<a href="${url}" download="${S.name}-edit.mp4">&#11015; Download ${S.name}-edit.mp4 (${(d.length/1e6).toFixed(1)} MB)</a>`+
+    (withAudio?'':' <span class="warn">(source me audio nahi tha)</span>');
+  stat('ready');
+  log('Export ready: '+((S.segs.reduce((n,s)=>n+(s.b-s.a),0))/S.speed).toFixed(1)+'s clip, download link neeche.','bot');
+ }catch(e){stat('error');log('Export error ['+(S.phase||'?')+']: '+String(e&&e.message||e).slice(0,200),'bot');
+  if(S.ffLog)log('ffmpeg: '+S.ffLog.slice(-14).join(' | ').slice(-900),'act')}
+ S.exporting=false;$('exp').disabled=false;
+}
+$('exp').onclick=exportMp4;
+draw();
+</script></body></html>

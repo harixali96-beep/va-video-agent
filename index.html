@@ -50,10 +50,12 @@
 </head>
 <body>
 <div class="wrap">
-  <header><span class="dot"></span><h1>VA <span>Studio</span></h1></header>
+  <header><span class="dot"></span><h1>VA <span>Studio</span></h1>
+    <a href="editor/" style="margin-left:auto;background:#ffd43b;color:#0b0b0b;text-decoration:none;
+       font-weight:700;font-size:13.5px;padding:9px 16px;border-radius:10px">Open editor &rarr;</a></header>
   <p class="sub">Drive link ya video bhejo, agent khud clips bana dega: transcript, best moments,
      face-tracked 9:16 reframe, word-by-word captions, hook bar + CTA + hashtags, 1080x1920.
-     Free compute, koi API key nahi.</p>
+     Free compute, koi API key nahi. Ya seedha <a href="editor/" style="color:#ffd43b">editor</a> kholo aur chat se khud edit karo.</p>
 
   <div class="grid">
     <section class="card">
@@ -61,13 +63,17 @@
       <label>Video source (Google Drive / YouTube / direct mp4)</label>
       <input id="src" placeholder="https://drive.google.com/file/d/FILE_ID/view">
       <div class="row">
-        <div><label>Clip length (sec)</label><input id="len" value="30"></div>
-        <div><label>How many clips</label><input id="cnt" value="2"></div>
+        <div><label>Clip length (sec)</label><input id="len" value="10"></div>
+        <div><label>How many clips (max 50)</label><input id="cnt" value="5"></div>
       </div>
       <label>CTA line</label>
       <input id="cta" placeholder="WATCH STREAM HOUSE LA ON CWETV">
       <label>Hashtags</label>
       <input id="tags" placeholder="#streamhouselacwe #streamhousela #cwetv">
+      <div class="row">
+        <div><label>Parallel runners (1-10)</label><input id="wrk" value="3"></div>
+        <div><label>Hook/text line (optional)</label><input id="hookline" placeholder=""></div>
+      </div>
       <button id="go">Start job</button>
       <p class="hint">Button tumhara GitHub issue khol dega (prefilled). "Submit new issue" dabao,
          render khud shuru ho jayega. Progress: <a id="runs" target="_blank">Actions</a> &middot;
@@ -110,7 +116,9 @@ document.getElementById('go').addEventListener('click', () => {
     'length: ' + (document.getElementById('len').value || '30'),
     'count: ' + (document.getElementById('cnt').value || '2'),
     'cta: ' + document.getElementById('cta').value.trim(),
-    'hashtags: ' + document.getElementById('tags').value.trim()
+    'hashtags: ' + document.getElementById('tags').value.trim(),
+    'workers: ' + (document.getElementById('wrk').value || '1'),
+    'hook: ' + (document.getElementById('hookline').value || '').trim()
   ].join('\n');
   const url = `https://github.com/${OWNER}/${REPO}/issues/new?title=${encodeURIComponent('CLIP JOB')}` +
               `&body=${encodeURIComponent(body)}&labels=clip-job`;
@@ -126,10 +134,11 @@ async function load(){
     if (!jobs.length) return;
     box.innerHTML = jobs.map(j => {
       const head = `<div class="job"><h3>${esc((j.clips[0] && j.clips[0].hook) || j.source || 'job')}</h3>
-        <div class="meta">${esc(j.when || '')} &middot; ${esc(j.count)} clips x ${esc(j.length)}s
+        <div class="meta">${esc(j.when || '')} &middot; ${esc(j.count)} clips x ${esc(j.length)}s${j.workers>1?' &middot; '+esc(j.workers)+' parallel':''}
         <span class="pill">${j.error ? 'error' : 'done'}</span></div>`;
       if (j.error) return head + `<div class="err">${esc(j.error)}</div></div>`;
       const clips = j.clips.map(c => `<div class="clip"><video controls preload="metadata" src="${esc(c.file)}"></video>
+        <a href="editor/?clip=${encodeURIComponent(c.file)}">edit karo &rarr;</a> &middot;
         <a href="${esc(c.pack)}" target="_blank">title + caption + tags</a>
         <div class="meta">${c.duration}s &middot; <span class="${c.qa_ok?'ok':'bad'}">qa ${c.qa_ok?'pass':'fail'}</span></div></div>`).join('');
       return head + `<div class="clips">${clips}</div></div>`;
