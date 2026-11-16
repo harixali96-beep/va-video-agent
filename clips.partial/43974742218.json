@@ -1,0 +1,13 @@
+{
+ "id": "43974742218",
+ "when": "2026-11-16T23:02:39Z",
+ "source": "https://youtu.be/uqC2WA8Q0RE?si=nK5SX0aDYFjBpKlF",
+ "length": 30.0,
+ "count": 3,
+ "cta": "hashtags:",
+ "hashtags": "hook:",
+ "worker": 0,
+ "workers": 1,
+ "clips": [],
+ "error": "CalledProcessError: Command '['yt-dlp', '-f', 'bv*[height<=1080]+ba/b[height<=1080]/b', '--merge-output-format', 'mp4', '-o', '/home/runner/work/_temp/va/in/src/source.%(ext)s', 'https://youtu.be/uqC2WA8Q0RE?si=nK5SX0aDYFjBpKlF']' returned non-zero exit status 1."
+}
