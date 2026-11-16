@@ -1,0 +1,50 @@
+[Script Info]
+ScriptType: v4.00+
+WrapStyle: 2
+ScaledBorderAndShadow: yes
+PlayResX: 1080
+PlayResY: 1920
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Cap,Anton,108,&H00FFFFFF,&H000000FF,&H00000000,&H64000000,-1,0,0,0,100,100,1,0,1,11,0,2,70,70,560,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.18,0:00:03.46,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}YOU OKAY,
+Dialogue: 0,0:00:03.58,0:00:03.67,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}MAN?
+Dialogue: 0,0:00:04.30,0:00:05.02,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}THAT'S ABOUT IT.
+Dialogue: 0,0:00:05.02,0:00:05.40,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}I'M READY FOR
+Dialogue: 0,0:00:05.40,0:00:05.49,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}IT.
+Dialogue: 0,0:00:05.50,0:00:05.68,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}HEY,
+Dialogue: 0,0:00:06.52,0:00:06.96,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}I {\c&H0000FFFF}LOOK{\c&H00FFFFFF} BOTH
+Dialogue: 0,0:00:06.96,0:00:07.20,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}SIDES.
+Dialogue: 0,0:00:07.54,0:00:08.10,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}IT'S JUST 0
+Dialogue: 0,0:00:08.10,0:00:08.40,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}.30,
+Dialogue: 0,0:00:08.64,0:00:09.60,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}YOU'RE DRIVING 35.
+Dialogue: 0,0:00:09.60,0:00:09.69,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}YOU'RE DRIVING 35.
+Dialogue: 0,0:00:10.12,0:00:10.90,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}YOU'RE PACKING MY
+Dialogue: 0,0:00:10.90,0:00:11.16,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}T -MAN EASY.
+Dialogue: 0,0:00:11.16,0:00:11.54,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}YOU SEE GUYS?
+Dialogue: 0,0:00:12.08,0:00:12.58,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}OH MAN,
+Dialogue: 0,0:00:12.80,0:00:13.42,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}EVEN ON THE
+Dialogue: 0,0:00:13.42,0:00:14.16,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}MAT ALL I
+Dialogue: 0,0:00:14.16,0:00:14.44,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}WANT!
+Dialogue: 0,0:00:14.56,0:00:15.14,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}BECAUSE IT'S MY
+Dialogue: 0,0:00:15.14,0:00:15.32,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}SHOW,
+Dialogue: 0,0:00:15.54,0:00:16.64,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}THIS IS VOLKSWAGEN!
+Dialogue: 0,0:00:17.04,0:00:17.28,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}VOLKSWAGEN!
+Dialogue: 0,0:00:17.92,0:00:18.30,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}IT'S THE CAR,
+Dialogue: 0,0:00:18.44,0:00:19.34,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}IT'S THE CAR,
+Dialogue: 0,0:00:19.52,0:00:19.74,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}MY KID!
+Dialogue: 0,0:00:19.98,0:00:20.50,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}ARE YOU COMFORTABLE
+Dialogue: 0,0:00:20.50,0:00:21.18,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}DOING THIS ON
+Dialogue: 0,0:00:21.18,0:00:21.32,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}THE STAND?
+Dialogue: 0,0:00:21.38,0:00:22.98,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}BECAUSE IF THIS
+Dialogue: 0,0:00:22.98,0:00:23.34,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}ONE BREAKS,
+Dialogue: 0,0:00:23.56,0:00:24.62,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}THERE'S NO NEW
+Dialogue: 0,0:00:24.62,0:00:24.76,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}ONE.
+Dialogue: 0,0:00:25.20,0:00:25.82,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}LET'S DO THE
+Dialogue: 0,0:00:25.82,0:00:26.24,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}REAL ONE,
+Dialogue: 0,0:00:26.34,0:00:26.62,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}LET'S DO THE
+Dialogue: 0,0:00:26.62,0:00:26.70,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}REAL

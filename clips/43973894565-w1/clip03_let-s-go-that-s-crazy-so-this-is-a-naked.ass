@@ -1,0 +1,55 @@
+[Script Info]
+ScriptType: v4.00+
+WrapStyle: 2
+ScaledBorderAndShadow: yes
+PlayResX: 1080
+PlayResY: 1920
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Cap,Anton,108,&H00FFFFFF,&H000000FF,&H00000000,&H64000000,-1,0,0,0,100,100,1,0,1,11,0,2,70,70,560,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.00,0:00:00.34,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}LET'S GO.
+Dialogue: 0,0:00:01.02,0:00:01.38,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}THAT'S {\c&H0000FFFF}CRAZY.{\c&H00FFFFFF}
+Dialogue: 0,0:00:01.94,0:00:02.60,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}SO THIS IS
+Dialogue: 0,0:00:02.60,0:00:03.46,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}A NAKED BURN.
+Dialogue: 0,0:00:03.84,0:00:04.42,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}YOUR FIREBENDER.
+Dialogue: 0,0:00:04.86,0:00:05.20,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}SO AS YOU
+Dialogue: 0,0:00:05.20,0:00:05.52,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}CAN SEE,
+Dialogue: 0,0:00:05.66,0:00:06.08,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}HE DOESN'T REALLY
+Dialogue: 0,0:00:06.08,0:00:06.84,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}HAVE ANY PROTECTION
+Dialogue: 0,0:00:06.84,0:00:07.52,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}ON HIS HANDS.
+Dialogue: 0,0:00:07.98,0:00:08.38,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}IT DOES NOT
+Dialogue: 0,0:00:08.38,0:00:08.56,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}HURT.
+Dialogue: 0,0:00:08.56,0:00:08.86,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}IT'S NOT,
+Dialogue: 0,0:00:09.02,0:00:09.42,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}DOES IT?
+Dialogue: 0,0:00:09.42,0:00:09.50,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}IT'S NOT,
+Dialogue: 0,0:00:09.62,0:00:09.76,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}IT'S NOT AT
+Dialogue: 0,0:00:09.76,0:00:09.94,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}ALL.
+Dialogue: 0,0:00:10.18,0:00:10.64,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}IS IT REAL?
+Dialogue: 0,0:00:10.98,0:00:11.30,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}OKAY,
+Dialogue: 0,0:00:11.68,0:00:11.77,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}REAL.
+Dialogue: 0,0:00:12.00,0:00:12.36,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}HELL,
+Dialogue: 0,0:00:12.80,0:00:13.40,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}THIS IS WHAT
+Dialogue: 0,0:00:13.40,0:00:14.22,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}WE'RE GONNA HAVE
+Dialogue: 0,0:00:14.22,0:00:14.78,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}ON OUR BODIES.
+Dialogue: 0,0:00:15.02,0:00:15.42,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}WE'RE GONNA START
+Dialogue: 0,0:00:15.42,0:00:15.82,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}WITH THIS,
+Dialogue: 0,0:00:16.02,0:00:16.12,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}YES.
+Dialogue: 0,0:00:16.30,0:00:16.94,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}THERE'S TWO GELS,
+Dialogue: 0,0:00:17.16,0:00:17.66,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}ONE IS PROTECTING
+Dialogue: 0,0:00:17.66,0:00:18.40,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}AND ONE IS
+Dialogue: 0,0:00:18.40,0:00:18.72,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}BURNING.
+Dialogue: 0,0:00:19.10,0:00:19.28,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}OH,
+Dialogue: 0,0:00:19.66,0:00:20.22,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}IS THIS THE
+Dialogue: 0,0:00:20.22,0:00:20.56,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}PROTECTIVE?
+Dialogue: 0,0:00:20.98,0:00:21.42,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}THIS IS THE
+Dialogue: 0,0:00:21.42,0:00:22.02,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}PROTECTIVE GEL.
+Dialogue: 0,0:00:22.24,0:00:22.82,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}I'LL START WITH
+Dialogue: 0,0:00:22.82,0:00:23.56,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}A BIT SMALL,
+Dialogue: 0,0:00:23.82,0:00:24.22,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}SO YOU CAN
+Dialogue: 0,0:00:24.22,0:00:24.82,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}HAVE THE EXPERIENCE
+Dialogue: 0,0:00:24.82,0:00:25.14,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}HERE,
+Dialogue: 0,0:00:25.14,0:00:25.32,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}AND

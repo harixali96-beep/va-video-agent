@@ -1,0 +1,49 @@
+[Script Info]
+ScriptType: v4.00+
+WrapStyle: 2
+ScaledBorderAndShadow: yes
+PlayResX: 1080
+PlayResY: 1920
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Cap,Anton,108,&H00FFFFFF,&H000000FF,&H00000000,&H64000000,-1,0,0,0,100,100,1,0,1,11,0,2,70,70,560,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.02,0:00:00.10,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}UP,
+Dialogue: 0,0:00:00.18,0:00:00.30,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}BRO?
+Dialogue: 0,0:00:00.64,0:00:01.02,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}WELL I GUESS
+Dialogue: 0,0:00:01.02,0:00:01.54,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}HE CHOSE THE
+Dialogue: 0,0:00:01.54,0:00:02.22,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}{\c&H0000FFFF}WRONG{\c&H00FFFFFF} CURRENCY.
+Dialogue: 0,0:00:02.92,0:00:03.32,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}HAHAHAHA!
+Dialogue: 0,0:00:03.48,0:00:04.28,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}ANOTHER REASON IS
+Dialogue: 0,0:00:04.28,0:00:04.62,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}THAT YOU CAN
+Dialogue: 0,0:00:04.62,0:00:05.18,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}PAY WITH A
+Dialogue: 0,0:00:05.18,0:00:05.92,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}CARD AND SPLIT
+Dialogue: 0,0:00:05.92,0:00:06.66,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}THE BILL EASILY
+Dialogue: 0,0:00:06.66,0:00:07.66,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}WITH YOUR FRIENDS
+Dialogue: 0,0:00:07.66,0:00:08.38,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}OR BROTHER.
+Dialogue: 0,0:00:08.66,0:00:08.98,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}I KNOW IT'S
+Dialogue: 0,0:00:08.98,0:00:09.62,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}PAYING FOR THIS
+Dialogue: 0,0:00:09.62,0:00:09.86,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}ONE.
+Dialogue: 0,0:00:10.42,0:00:10.82,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}HAHAHAHA.
+Dialogue: 0,0:00:11.42,0:00:11.82,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}CONVINCED?
+Dialogue: 0,0:00:14.46,0:00:15.12,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}ME TOO.
+Dialogue: 0,0:00:15.42,0:00:15.70,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}IF YOU WANT
+Dialogue: 0,0:00:15.70,0:00:15.98,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}TO GET A
+Dialogue: 0,0:00:15.98,0:00:16.64,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}20 -YEAR -OLD
+Dialogue: 0,0:00:16.64,0:00:17.34,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}WELCOME BONUS,
+Dialogue: 0,0:00:17.48,0:00:18.26,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}GO DOWNLOAD THE
+Dialogue: 0,0:00:18.26,0:00:18.88,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}APP IN THE
+Dialogue: 0,0:00:18.88,0:00:19.60,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}LINK BELOW.
+Dialogue: 0,0:00:19.86,0:00:20.54,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}AND JOIN REVOLENCE
+Dialogue: 0,0:00:20.54,0:00:21.00,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}WITH MORE THAN
+Dialogue: 0,0:00:21.00,0:00:22.26,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}1 {\c&H0000FFFF}MILLION{\c&H00FFFFFF} BELGIANS
+Dialogue: 0,0:00:22.26,0:00:22.56,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}WORLDWIDE.
+Dialogue: 0,0:00:22.94,0:00:23.34,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}ALRIGHT,
+Dialogue: 0,0:00:23.46,0:00:23.64,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}I NEED TO
+Dialogue: 0,0:00:23.64,0:00:24.16,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}GO BACK INSIDE
+Dialogue: 0,0:00:24.16,0:00:24.92,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}BECAUSE I KNOW
+Dialogue: 0,0:00:24.92,0:00:25.38,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}IT'S GONNA GO
+Dialogue: 0,0:00:25.38,0:00:25.56,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}THROUGH

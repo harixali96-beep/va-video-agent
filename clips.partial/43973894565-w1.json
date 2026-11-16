@@ -1,0 +1,44 @@
+{
+ "id": "43973894565-w1",
+ "when": "2026-11-16T22:51:46Z",
+ "source": "https://drive.google.com/file/d/1zNgSxDRdAddKxW8cXgslnR_32N3RPMY0/view?usp=drivesdk",
+ "length": 25.0,
+ "count": 3,
+ "cta": "hashtags:",
+ "hashtags": "workers: 3",
+ "worker": 1,
+ "workers": 3,
+ "clips": [
+  {
+   "file": "clips/43973894565-w1/clip01_you-okay-man.mp4",
+   "pack": "clips/43973894565-w1/clip01_you-okay-man.txt",
+   "hook": "You okay, man?",
+   "duration": 26.7,
+   "start": 164.52,
+   "end": 191.22,
+   "qa_ok": true,
+   "qa_issues": []
+  },
+  {
+   "file": "clips/43973894565-w1/clip02_up-bro-well-i-guess-he-chose-the-wrong-c.mp4",
+   "pack": "clips/43973894565-w1/clip02_up-bro-well-i-guess-he-chose-the-wrong-c.txt",
+   "hook": "up, bro? Well I guess he chose the wrong currency. Hahahaha!\u2026",
+   "duration": 25.56,
+   "start": 769.66,
+   "end": 795.22,
+   "qa_ok": true,
+   "qa_issues": []
+  },
+  {
+   "file": "clips/43973894565-w1/clip03_let-s-go-that-s-crazy-so-this-is-a-naked.mp4",
+   "pack": "clips/43973894565-w1/clip03_let-s-go-that-s-crazy-so-this-is-a-naked.txt",
+   "hook": "Let's go. That's crazy. So this is a naked burn. Your\u2026",
+   "duration": 25.32,
+   "start": 945.72,
+   "end": 971.04,
+   "qa_ok": true,
+   "qa_issues": []
+  }
+ ],
+ "error": ""
+}
