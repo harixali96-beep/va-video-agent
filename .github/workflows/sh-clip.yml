@@ -89,6 +89,33 @@ jobs:
         if: github.event_name == 'issues' && always()
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RUN_ID: ${{ github.run_id }}
         run: |
-          gh issue comment ${{ github.event.issue.number }} --repo ${{ github.repository }} \
-            --body "Campaign clips: https://harixali96-beep.github.io/va-video-agent/streamhouse/ (page refresh karo). Titles + hashtags har clip ke saath .txt me hain."
+          python3 - > /tmp/msg.md <<'PY'
+          import json, os
+          job = {}
+          try:
+              idx = json.load(open("shclips.json"))
+              job = next((j for j in idx.get("jobs", []) if j.get("id") == os.environ["RUN_ID"]), {})
+          except Exception as e:
+              print("Job finished, status padha nahi ja saka:", e)
+          if job.get("error"):
+              print("Job fail hua: `" + job["error"] + "`")
+              print()
+              print("Fix: Drive file ko \"anyone with the link\" karke direct link bhejo, "
+                    "ya direct .mp4 URL. YouTube runner ke IP ko block karta hai.")
+          elif job.get("clips"):
+              print("Clips ready (" + str(len(job["clips"])) + "):")
+              print()
+              for c in job["clips"]:
+                  print("- " + str(c["start"]) + "-" + str(c["end"]) + "s  `" + c["file"] + "`")
+              print()
+              print("Dekho: https://harixali96-beep.github.io/va-video-agent/streamhouse/ "
+                    "(page refresh karo). Title + hashtags har clip ke `.txt` me hain.")
+          else:
+              print("Job chala par clips nahi bane. Run log dekho: "
+                    + os.environ.get("GITHUB_SERVER_URL", "https://github.com") + "/"
+                    + os.environ.get("GITHUB_REPOSITORY", "") + "/actions/runs/"
+                    + os.environ["RUN_ID"])
+          PY
+          gh issue comment ${{ github.event.issue.number }} --repo ${{ github.repository }} --body-file /tmp/msg.md

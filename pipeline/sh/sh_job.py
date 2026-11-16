@@ -35,8 +35,10 @@ MAX_CLIPS = 10
 
 
 def field(body, key, default=""):
-    m = re.search(rf"^\s*{key}\s*[:\-]\s*(.+)$", body, re.I | re.M)
-    return m.group(1).strip() if m else default
+    """Only spaces/tabs around the colon: \s would eat the newline and grab the
+    next line when a field is left empty."""
+    m = re.search(rf"^[ \t]*{key}[ \t]*[:\-][ \t]*(.*)$", body, re.I | re.M)
+    return (m.group(1).strip() if m else "") or default
 
 
 def need(key, default=""):
@@ -60,11 +62,41 @@ def parse():
     return src.strip(), max(1, min(count, MAX_CLIPS)), lo, hi, cta, tags, hook
 
 
+YOUTUBE = ("youtube.com", "youtu.be")
+
+
+def download_youtube(src, work):
+    """Runner IPs often get YouTube's bot check, so try several player clients."""
+    out = work / "in"
+    out.mkdir(parents=True, exist_ok=True)
+    last = ""
+    for client in ("android_vr,web_safari,tv", "ios", "web_embedded", "mweb"):
+        cmd = ["yt-dlp", "-f", "bv*[height<=1080]+ba/b[height<=1080]/b",
+               "--merge-output-format", "mp4", "--no-warnings",
+               "--retries", "3", "--fragment-retries", "5",
+               "--extractor-args", f"youtube:player_client={client}",
+               "-o", str(out / "source.%(ext)s"), src]
+        p = subprocess.run(cmd, capture_output=True, text=True)
+        if p.returncode == 0:
+            files = sorted(f for f in out.glob("source.*") if f.stat().st_size > 100_000)
+            if files:
+                print(f"[sh] youtube ok with client={client}", flush=True)
+                return files[0]
+        last = (p.stderr or p.stdout or "").strip().splitlines()
+        last = last[-1] if last else f"exit {p.returncode}"
+        print(f"[sh] youtube client={client} failed: {last[:160]}", flush=True)
+    raise RuntimeError(
+        "YouTube ne runner ka IP block kiya (bot check). "
+        f"Last error: {last[:180]}. Drive link (anyone with the link) ya direct mp4 URL bhejo.")
+
+
 def resolve_source(src, work):
-    """Local repo path, else the agent's own resolver (Drive / yt-dlp / direct)."""
+    """Local repo path, YouTube with fallbacks, else the agent's own resolver."""
     local = Path(src)
     if local.exists():
         return local
+    if any(h in src for h in YOUTUBE):
+        return download_youtube(src, work)
     import va_chat
     return Path(va_chat.resolve_source(src, work / "in"))
 
@@ -154,6 +186,9 @@ def main():
             raise RuntimeError("no speech detected in the source")
         wanted = count * wn
         chosen = bt.choose(words, wanted, lo, hi)
+        if not chosen:
+            print(f"[sh] no window in {lo:.0f}-{hi:.0f}s, widening the range", flush=True)
+            chosen = bt.choose(words, wanted, max(4.0, lo * 0.7), hi * 1.4)
         if not chosen:
             raise RuntimeError(f"no spoken window between {lo:.0f}s and {hi:.0f}s found")
         if wn > 1:
