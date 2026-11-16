@@ -1,0 +1,28 @@
+[Script Info]
+ScriptType: v4.00+
+WrapStyle: 2
+ScaledBorderAndShadow: yes
+PlayResX: 1080
+PlayResY: 1920
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Cap,Anton,108,&H00FFFFFF,&H000000FF,&H00000000,&H64000000,-1,0,0,0,100,100,1,0,1,11,0,2,70,70,560,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.18,0:00:00.74,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}THE {\c&H0000FFFF}TRUTH{\c&H00FFFFFF} IS
+Dialogue: 0,0:00:00.74,0:00:01.74,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}{\c&H0000FFFF}NOBODY{\c&H00FFFFFF} CARES ABOUT
+Dialogue: 0,0:00:01.74,0:00:02.22,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}YOUR EDITING.
+Dialogue: 0,0:00:02.80,0:00:03.10,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}{\c&H0000FFFF}NOBODY.{\c&H00FFFFFF}
+Dialogue: 0,0:00:03.58,0:00:04.32,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}THEY CARE ABOUT
+Dialogue: 0,0:00:04.32,0:00:04.92,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}THE {\c&H0000FFFF}FIRST{\c&H00FFFFFF} TWO
+Dialogue: 0,0:00:04.92,0:00:05.22,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}SECONDS.
+Dialogue: 0,0:00:05.86,0:00:06.48,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}I LOST 300
+Dialogue: 0,0:00:06.48,0:00:07.74,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)},000 FOLLOWERS IN
+Dialogue: 0,0:00:07.74,0:00:08.54,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}ONE WEEK BECAUSE
+Dialogue: 0,0:00:08.54,0:00:09.24,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}I CHANGED MY
+Dialogue: 0,0:00:09.24,0:00:09.44,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}HOOK.
+Dialogue: 0,0:00:10.02,0:00:10.64,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}THAT IS 100
+Dialogue: 0,0:00:10.64,0:00:11.68,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}% TRUE AND
+Dialogue: 0,0:00:11.68,0:00:12.16,Cap,,0,0,0,,{\fad(45,30)\fscx100\fscy100\t(0,90,\fscx114\fscy114)\t(90,190,\fscx100\fscy100)}IT STILL HURTS.

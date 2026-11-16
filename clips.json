@@ -1,1 +1,26 @@
-{"jobs": []}
+{
+ "jobs": [
+  {
+   "id": "43956460664",
+   "when": "2026-11-16T21:05:02Z",
+   "source": "sample/sample_demo.mp4",
+   "length": 12.0,
+   "count": 1,
+   "cta": "WATCH STREAM HOUSE LA ON CWETV",
+   "hashtags": "#streamhouselacwe #streamhousela #cwetv",
+   "clips": [
+    {
+     "file": "clips/43956460664/clip01_the-truth-is-nobody-cares-about-your-edi.mp4",
+     "pack": "clips/43956460664/clip01_the-truth-is-nobody-cares-about-your-edi.txt",
+     "hook": "The truth is nobody cares about your editing. Nobody. They\u2026",
+     "duration": 12.16,
+     "start": 1.88,
+     "end": 14.04,
+     "qa_ok": true,
+     "qa_issues": []
+    }
+   ],
+   "error": ""
+  }
+ ]
+}
