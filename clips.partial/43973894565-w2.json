@@ -1,0 +1,44 @@
+{
+ "id": "43973894565-w2",
+ "when": "2026-11-16T22:51:49Z",
+ "source": "https://drive.google.com/file/d/1zNgSxDRdAddKxW8cXgslnR_32N3RPMY0/view?usp=drivesdk",
+ "length": 25.0,
+ "count": 3,
+ "cta": "hashtags:",
+ "hashtags": "workers: 3",
+ "worker": 2,
+ "workers": 3,
+ "clips": [
+  {
+   "file": "clips/43973894565-w2/clip01_that-s-my-ear-to-my-head-someone-shot.mp4",
+   "pack": "clips/43973894565-w2/clip01_that-s-my-ear-to-my-head-someone-shot.txt",
+   "hook": "that's my ear to my head. Someone shot",
+   "duration": 25.16,
+   "start": 692.0,
+   "end": 717.16,
+   "qa_ok": true,
+   "qa_issues": []
+  },
+  {
+   "file": "clips/43973894565-w2/clip02_let-s-go-that-s-crazy-so-this-is-a-naked.mp4",
+   "pack": "clips/43973894565-w2/clip02_let-s-go-that-s-crazy-so-this-is-a-naked.txt",
+   "hook": "Let's go. That's crazy. So this is a naked burn. Your\u2026",
+   "duration": 25.32,
+   "start": 945.72,
+   "end": 971.04,
+   "qa_ok": true,
+   "qa_issues": []
+  },
+  {
+   "file": "clips/43973894565-w2/clip03_alright-you-had-every-reason-to-panic-an.mp4",
+   "pack": "clips/43973894565-w2/clip03_alright-you-had-every-reason-to-panic-an.txt",
+   "hook": "Alright. You had every reason to panic and you didn't. Whoa",
+   "duration": 25.59,
+   "start": 1327.73,
+   "end": 1353.32,
+   "qa_ok": true,
+   "qa_issues": []
+  }
+ ],
+ "error": ""
+}
