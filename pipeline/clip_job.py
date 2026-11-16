@@ -14,8 +14,10 @@ INDEX = REPO_ROOT / "clips.json"
 
 
 def field(body, key, default=""):
-    m = re.search(rf"^\s*{key}\s*[:\-]\s*(.+)$", body, re.I | re.M)
-    return m.group(1).strip() if m else default
+    # spaces/tabs only: \s would swallow the newline and read the next line
+    # whenever a field is submitted empty.
+    m = re.search(rf"^[ \t]*{key}[ \t]*[:\-][ \t]*(.*)$", body, re.I | re.M)
+    return (m.group(1).strip() if m else "") or default
 
 
 def parse():
