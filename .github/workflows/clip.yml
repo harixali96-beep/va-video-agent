@@ -83,4 +83,4 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           gh issue comment ${{ github.event.issue.number }} --repo ${{ github.repository }} \
-            --body "Clips ready: https://harisaliharis.github.io/va-video-agent/ (site refresh karo)"
+            --body "Clips ready: https://harixali96-beep.github.io/va-video-agent/ (site refresh karo)"

@@ -3,7 +3,7 @@
 Static site on GitHub Pages + rendering on GitHub Actions (2-core runner, free for public repos).
 No API keys, no paid services.
 
-**Site:** https://harisaliharis.github.io/va-video-agent/
+**Site:** https://harixali96-beep.github.io/va-video-agent/
 
 ## How a job runs
 
