@@ -1,6 +1,17 @@
 {
  "jobs": [
   {
+   "id": "43971484574",
+   "when": "2026-11-16T21:58:19Z",
+   "source": "https://youtu.be/uqC2WA8Q0RE?si=nK5SX0aDYFjBpKlF",
+   "length": 20.0,
+   "count": 5,
+   "cta": "hashtags:",
+   "hashtags": "",
+   "clips": [],
+   "error": "CalledProcessError: Command '['yt-dlp', '-f', 'bv*[height<=1080]+ba/b[height<=1080]/b', '--merge-output-format', 'mp4', '-o', '/home/runner/work/_temp/va/in/src/source.%(ext)s', 'https://youtu.be/uqC2WA8Q0RE?si=nK5SX0aDYFjBpKlF']' returned non-zero exit status 1."
+  },
+  {
    "id": "43964329571",
    "when": "2026-11-16T21:51:05Z",
    "source": "https://drive.google.com/file/d/1odgkfHD1i8mQXvEb00ljpi1Bnq1fuluW/view?usp=drivesdk",
