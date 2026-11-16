@@ -178,6 +178,18 @@ def render(src, start, end, hook, title, out, crop="center", lang=None):
     return p.stdout.strip()
 
 
+def choose(words, count, lo, hi):
+    """Pick clip windows, relaxing the pause threshold when speech runs together."""
+    attempts = [(0.70, 6, lo), (0.35, 4, lo), (0.35, 3, max(3.0, lo * 0.6)),
+                (0.20, 2, max(3.0, lo * 0.5))]
+    for gap, minw, low in attempts:
+        segs = segments(words, max_gap=gap, min_words=minw)
+        chosen = pick(segs, count, low, hi)
+        if chosen:
+            return chosen
+    return []
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--src", required=True)
@@ -193,7 +205,7 @@ def main():
     os.makedirs(a.outdir, exist_ok=True)
     words = speech_words(a.src, a.lang)
     segs = segments(words)
-    chosen = pick(segs, a.count, a.lo, a.hi)
+    chosen = choose(words, a.count, a.lo, a.hi)
     if not chosen:
         raise SystemExit("no usable spoken segments found (is there audio?)")
 

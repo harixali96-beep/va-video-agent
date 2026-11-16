@@ -152,9 +152,8 @@ def main():
         words = mc.transcribe(str(video))
         if not words:
             raise RuntimeError("no speech detected in the source")
-        segs = bt.segments(words)
         wanted = count * wn
-        chosen = bt.pick(segs, wanted, lo, hi)
+        chosen = bt.choose(words, wanted, lo, hi)
         if not chosen:
             raise RuntimeError(f"no spoken window between {lo:.0f}s and {hi:.0f}s found")
         if wn > 1:
