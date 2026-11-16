@@ -1,0 +1,52 @@
+{
+ "id": "43976472192",
+ "when": "2026-11-16T23:08:52Z",
+ "source": "https://drive.google.com/file/d/1odgkfHD1i8mQXvEb00ljpi1Bnq1fuluW/view?usp=drivesdk",
+ "count": 3,
+ "min": 7.0,
+ "max": 16.0,
+ "cta": "WATCH THE FULL EP ON @CHICKEN WRAP ENT",
+ "hashtags": "#streamhouselacwe #streamhousela #cwetv",
+ "clips": [
+  {
+   "file": "clips/sh-43976472192/clip01_bro-tell-bro-tell-everybody-your-name-real.mp4",
+   "pack": "clips/sh-43976472192/clip01_bro-tell-bro-tell-everybody-your-name-real.txt",
+   "hook": "BRO TELL BRO TELL EVERYBODY YOUR NAME REAL",
+   "title": "Bro tell bro tell everybody your name real quick bro",
+   "caption": "Bro tell bro tell everybody your name real quick bro WATCH THE FULL EP ON @CHICKEN WRAP ENT",
+   "hashtags": "#streamhouselacwe #streamhousela #cwetv",
+   "start": 5.02,
+   "end": 13.16,
+   "duration": 8.14,
+   "qa_ok": true,
+   "qa_issues": []
+  },
+  {
+   "file": "clips/sh-43976472192/clip02_hey-look-look-look-now-you-about-to-go.mp4",
+   "pack": "clips/sh-43976472192/clip02_hey-look-look-look-now-you-about-to-go.txt",
+   "hook": "HEY, LOOK, LOOK, LOOK NOW YOU ABOUT TO GO",
+   "title": "Hey, look, look, look now you about to go to Japan, bro All right",
+   "caption": "Hey, look, look, look now you about to go to Japan, bro All right WATCH THE FULL EP ON @CHICKEN WRAP ENT",
+   "hashtags": "#streamhouselacwe #streamhousela #cwetv",
+   "start": 177.6,
+   "end": 186.62,
+   "duration": 9.02,
+   "qa_ok": true,
+   "qa_issues": []
+  },
+  {
+   "file": "clips/sh-43976472192/clip03_we-got-one-more-and-chat-next-time-chat-chat.mp4",
+   "pack": "clips/sh-43976472192/clip03_we-got-one-more-and-chat-next-time-chat-chat.txt",
+   "hook": "WE GOT ONE MORE AND CHAT NEXT TIME CHAT CHAT",
+   "title": "We got one more and chat next time chat chat everybody do that link",
+   "caption": "We got one more and chat next time chat chat everybody do that link WATCH THE FULL EP ON @CHICKEN WRAP ENT",
+   "hashtags": "#streamhouselacwe #streamhousela #cwetv",
+   "start": 197.95,
+   "end": 207.03,
+   "duration": 9.08,
+   "qa_ok": true,
+   "qa_issues": []
+  }
+ ],
+ "error": ""
+}
