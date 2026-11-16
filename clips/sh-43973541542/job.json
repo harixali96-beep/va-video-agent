@@ -1,0 +1,12 @@
+{
+ "id": "43973541542",
+ "when": "2026-11-16T22:50:00Z",
+ "source": "sample/sample_demo.mp4",
+ "count": 2,
+ "min": 7.0,
+ "max": 16.0,
+ "cta": "WATCH THE FULL EP ON @CHICKEN WRAP ENT",
+ "hashtags": "#streamhouselacwe #streamhousela #cwetv",
+ "clips": [],
+ "error": "RuntimeError: no spoken window between 7s and 16s found"
+}
