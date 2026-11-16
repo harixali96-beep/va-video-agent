@@ -1,6 +1,17 @@
 {
  "jobs": [
   {
+   "id": "43962751643",
+   "when": "2026-11-16T21:10:22Z",
+   "source": "https://drive.google.com/file/d/1Hu0RqheLzu0vMPRGinEB9o2UHjlaIfxH/view?usp=drivesdk",
+   "length": 10.0,
+   "count": 3,
+   "cta": "hashtags:",
+   "hashtags": "",
+   "clips": [],
+   "error": "TypeError: download() got an unexpected keyword argument 'fuzzy'"
+  },
+  {
    "id": "43957026946",
    "when": "2026-11-16T21:06:38Z",
    "source": "sample/sample_demo.mp4",
