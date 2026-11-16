@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VA Studio - AI video agent</title>
+<style>
+  :root{--bg:#0b0d12;--panel:#12151d;--panel2:#171b26;--line:#242a38;--txt:#eef1f7;
+        --mut:#8b93a7;--acc:#ffd43b;--hot:#ff4d4d}
+  *{box-sizing:border-box}
+  body{margin:0;background:radial-gradient(1200px 600px at 20% -10%,#1b2130,transparent),var(--bg);
+       color:var(--txt);font:15px/1.55 ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+  .wrap{max-width:1080px;margin:0 auto;padding:40px 22px 70px}
+  header{display:flex;align-items:center;gap:14px;margin-bottom:8px}
+  .dot{width:11px;height:11px;border-radius:50%;background:var(--hot);box-shadow:0 0 0 4px #ff4d4d22}
+  h1{font-size:30px;margin:0;letter-spacing:-.5px}
+  h1 span{color:var(--acc)}
+  .sub{color:var(--mut);margin:6px 0 26px;font-size:14.5px}
+  .grid{display:grid;grid-template-columns:1.05fr .95fr;gap:18px}
+  @media(max-width:820px){.grid{grid-template-columns:1fr}}
+  .card{background:linear-gradient(180deg,var(--panel),var(--panel2));border:1px solid var(--line);
+        border-radius:16px;padding:20px}
+  h2{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--mut);margin:0 0 14px}
+  label{display:block;font-size:12px;color:var(--mut);margin:12px 0 5px;letter-spacing:.04em}
+  input{width:100%;background:#0d1017;border:1px solid var(--line);color:var(--txt);
+        border-radius:10px;padding:11px 12px;font:inherit;font-size:14px}
+  input:focus{outline:none;border-color:#3a4a6a}
+  .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  button{width:100%;margin-top:18px;background:var(--acc);color:#0b0b0b;border:0;border-radius:11px;
+         padding:13px;font:inherit;font-weight:700;cursor:pointer}
+  button:hover{filter:brightness(.94)}
+  .hint{font-size:12px;color:var(--mut);margin-top:10px;line-height:1.5}
+  .hint a{color:var(--acc);text-decoration:none}
+  .job{border-top:1px solid var(--line);padding:16px 0}
+  .job:first-child{border-top:0;padding-top:0}
+  .job h3{margin:0 0 3px;font-size:14px;font-weight:600;word-break:break-all}
+  .meta{color:var(--mut);font-size:11.5px;margin-bottom:10px}
+  video{width:100%;max-width:230px;border-radius:12px;background:#000;display:block}
+  .clips{display:flex;gap:12px;flex-wrap:wrap}
+  .clip{width:230px}
+  .clip a{color:var(--acc);font-size:11.5px;text-decoration:none;display:inline-block;margin-top:5px}
+  .err{color:#ff8b8b;font-size:12.5px;background:#2a1518;border:1px solid #5b2429;
+       padding:10px 12px;border-radius:10px}
+  .pill{display:inline-block;font-size:10.5px;border:1px solid var(--line);color:var(--mut);
+        border-radius:999px;padding:2px 8px;margin-left:6px}
+  .ok{color:#8ef0a8}.bad{color:#ff8b8b}
+  footer{margin-top:30px;color:#5d6478;font-size:12px;text-align:center}
+  code{background:#0d1017;border:1px solid var(--line);padding:1px 5px;border-radius:5px;font-size:12px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header><span class="dot"></span><h1>VA <span>Studio</span></h1></header>
+  <p class="sub">Drive link ya video bhejo, agent khud clips bana dega: transcript, best moments,
+     face-tracked 9:16 reframe, word-by-word captions, hook bar + CTA + hashtags, 1080x1920.
+     Free compute, koi API key nahi.</p>
+
+  <div class="grid">
+    <section class="card">
+      <h2>1 &middot; New clip job</h2>
+      <label>Video source (Google Drive / YouTube / direct mp4)</label>
+      <input id="src" placeholder="https://drive.google.com/file/d/FILE_ID/view">
+      <div class="row">
+        <div><label>Clip length (sec)</label><input id="len" value="30"></div>
+        <div><label>How many clips</label><input id="cnt" value="2"></div>
+      </div>
+      <label>CTA line</label>
+      <input id="cta" placeholder="WATCH STREAM HOUSE LA ON CWETV">
+      <label>Hashtags</label>
+      <input id="tags" placeholder="#streamhouselacwe #streamhousela #cwetv">
+      <button id="go">Start job</button>
+      <p class="hint">Button tumhara GitHub issue khol dega (prefilled). "Submit new issue" dabao,
+         render khud shuru ho jayega. Progress: <a id="runs" target="_blank">Actions</a> &middot;
+         Clips niche apne aap aa jayenge.</p>
+    </section>
+
+    <section class="card">
+      <h2>2 &middot; How it works</h2>
+      <p style="font-size:13.5px;color:#c8cfdd;margin:0 0 12px">
+        Har job GitHub Actions ke 2-core runner pe chalti hai, bilkul free.</p>
+      <p style="font-size:13px;color:var(--mut);line-height:1.7;margin:0">
+        <b style="color:#e5e9f2">whisper</b> word timestamps &rarr;
+        <b style="color:#e5e9f2">scenedetect</b> shots &rarr;
+        <b style="color:#e5e9f2">librosa</b> energy &rarr; sentence-aligned best moments &rarr;
+        <b style="color:#e5e9f2">YuNet</b> face-tracked crop &rarr;
+        <b style="color:#e5e9f2">libass</b> captions &rarr; brand overlay &rarr;
+        ffmpeg 1080x1920 30fps &rarr; self-check
+      </p>
+      <p class="hint">Private Drive file? Sharing "Anyone with the link" rakho, warna download fail hoga.
+         Whop links login ke peeche hote hain, direct file URL do.</p>
+    </section>
+  </div>
+
+  <section class="card" style="margin-top:18px">
+    <h2>3 &middot; Finished clips</h2>
+    <div id="jobs"><p class="hint">Pehla job chalao, clips yahan aa jayenge.</p></div>
+  </section>
+
+  <footer>VA Video Agent &middot; local models, no paid APIs &middot;
+    <a href="https://github.com/harisaliharis/va-video-agent" style="color:#7f8aa3">source</a></footer>
+</div>
+<script>
+const OWNER = 'harisaliharis', REPO = 'va-video-agent';
+document.getElementById('runs').href = `https://github.com/${OWNER}/${REPO}/actions`;
+document.getElementById('go').addEventListener('click', () => {
+  const src = document.getElementById('src').value.trim();
+  if (!src) { document.getElementById('src').focus(); return; }
+  const body = [
+    'source: ' + src,
+    'length: ' + (document.getElementById('len').value || '30'),
+    'count: ' + (document.getElementById('cnt').value || '2'),
+    'cta: ' + document.getElementById('cta').value.trim(),
+    'hashtags: ' + document.getElementById('tags').value.trim()
+  ].join('\n');
+  const url = `https://github.com/${OWNER}/${REPO}/issues/new?title=${encodeURIComponent('CLIP JOB')}` +
+              `&body=${encodeURIComponent(body)}&labels=clip-job`;
+  window.open(url, '_blank');
+});
+function esc(s){ return String(s||'').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+async function load(){
+  try {
+    const r = await fetch('clips.json?t=' + Date.now());
+    const d = await r.json();
+    const jobs = (d.jobs || []);
+    const box = document.getElementById('jobs');
+    if (!jobs.length) return;
+    box.innerHTML = jobs.map(j => {
+      const head = `<div class="job"><h3>${esc((j.clips[0] && j.clips[0].hook) || j.source || 'job')}</h3>
+        <div class="meta">${esc(j.when || '')} &middot; ${esc(j.count)} clips x ${esc(j.length)}s
+        <span class="pill">${j.error ? 'error' : 'done'}</span></div>`;
+      if (j.error) return head + `<div class="err">${esc(j.error)}</div></div>`;
+      const clips = j.clips.map(c => `<div class="clip"><video controls preload="metadata" src="${esc(c.file)}"></video>
+        <a href="${esc(c.pack)}" target="_blank">title + caption + tags</a>
+        <div class="meta">${c.duration}s &middot; <span class="${c.qa_ok?'ok':'bad'}">qa ${c.qa_ok?'pass':'fail'}</span></div></div>`).join('');
+      return head + `<div class="clips">${clips}</div></div>`;
+    }).join('');
+  } catch(e) {}
+}
+load(); setInterval(load, 30000);
+</script>
+</body>
+</html>

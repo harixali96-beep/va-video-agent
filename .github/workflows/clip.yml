@@ -1,0 +1,86 @@
+name: Clip job
+on:
+  issues:
+    types: [opened]
+  workflow_dispatch:
+    inputs:
+      source:
+        description: 'video link or repo path'
+        required: true
+      length:
+        description: 'seconds per clip'
+        default: '30'
+      count:
+        description: 'how many clips'
+        default: '2'
+      cta:
+        description: 'CTA line'
+        default: ''
+      hashtags:
+        description: 'hashtags'
+        default: ''
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: clip-job
+  cancel-in-progress: false
+
+jobs:
+  render:
+    # only clip jobs, not every issue
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.issue.title, 'CLIP')
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+
+      - name: system deps
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg fonts-dejavu-core
+          sudo mkdir -p /usr/share/fonts/truetype/custom
+          curl -sL -o /tmp/anton.ttf https://github.com/google/fonts/raw/main/ofl/anton/Anton-Regular.ttf
+          sudo cp /tmp/anton.ttf /usr/share/fonts/truetype/custom/Anton-Regular.ttf
+          sudo fc-cache -f
+
+      - name: python deps
+        run: pip install -r requirements.txt
+
+      - name: render clips
+        env:
+          ISSUE_BODY: ${{ github.event.issue.body }}
+          IN_SOURCE: ${{ github.event.inputs.source }}
+          IN_LENGTH: ${{ github.event.inputs.length }}
+          IN_COUNT: ${{ github.event.inputs.count }}
+          IN_CTA: ${{ github.event.inputs.cta }}
+          IN_HASHTAGS: ${{ github.event.inputs.hashtags }}
+          VA_WORK: ${{ runner.temp }}/va
+          JOB_DATE: ${{ github.event.repository.pushed_at }}
+          VA_ASR: base.en
+        run: python3 pipeline/clip_job.py
+
+      - name: publish to site
+        run: |
+          git config user.name "va-agent"
+          git config user.email "va-agent@users.noreply.github.com"
+          git add clips clips.json
+          if git diff --cached --quiet; then echo "nothing to publish"; else
+            git commit -m "clips: ${{ github.run_id }}"
+            git pull --rebase --autostash
+            git push
+          fi
+
+      - name: comment on request
+        if: github.event_name == 'issues'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh issue comment ${{ github.event.issue.number }} --repo ${{ github.repository }} \
+            --body "Clips ready: https://harisaliharis.github.io/va-video-agent/ (site refresh karo)"
