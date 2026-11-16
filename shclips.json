@@ -1,6 +1,32 @@
 {
  "jobs": [
   {
+   "id": "43974145456",
+   "when": "2026-11-16T22:53:20Z",
+   "source": "sample/sample_demo.mp4",
+   "count": 2,
+   "min": 7.0,
+   "max": 16.0,
+   "cta": "WATCH THE FULL EP ON @CHICKEN WRAP ENT",
+   "hashtags": "#streamhouselacwe #streamhousela #cwetv",
+   "clips": [
+    {
+     "file": "clips/sh-43974145456/clip01_you-actually-blow-up-on-short-form.mp4",
+     "pack": "clips/sh-43974145456/clip01_you-actually-blow-up-on-short-form.txt",
+     "hook": "YOU ACTUALLY BLOW UP ON SHORT FORM",
+     "title": "You actually blow up on short form. The truth is nobody cares about",
+     "caption": "You actually blow up on short form. The truth is nobody cares about WATCH THE FULL EP ON @CHICKEN WRAP ENT",
+     "hashtags": "#streamhouselacwe #streamhousela #cwetv",
+     "start": 0.0,
+     "end": 7.16,
+     "duration": 7.16,
+     "qa_ok": true,
+     "qa_issues": []
+    }
+   ],
+   "error": ""
+  },
+  {
    "id": "43973541542",
    "when": "2026-11-16T22:50:00Z",
    "source": "sample/sample_demo.mp4",
