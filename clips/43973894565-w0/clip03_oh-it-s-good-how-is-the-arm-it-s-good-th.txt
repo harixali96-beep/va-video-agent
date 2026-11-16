@@ -1,0 +1,10 @@
+TITLE: Oh, it's good. How is the arm? It's good. That's what we're
+
+CAPTION:
+Oh, it's good. How is the arm? It's good. That's what we're…
+
+workers: 3
+
+HASHTAGS: workers: 3
+
+SOURCE RANGE: 799.7s -> 825.38s (25.7s)

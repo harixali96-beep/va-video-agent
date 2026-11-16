@@ -1,0 +1,44 @@
+{
+ "id": "43973894565-w0",
+ "when": "2026-11-16T22:51:39Z",
+ "source": "https://drive.google.com/file/d/1zNgSxDRdAddKxW8cXgslnR_32N3RPMY0/view?usp=drivesdk",
+ "length": 25.0,
+ "count": 3,
+ "cta": "hashtags:",
+ "hashtags": "workers: 3",
+ "worker": 0,
+ "workers": 3,
+ "clips": [
+  {
+   "file": "clips/43973894565-w0/clip01_how-s-it-going-hi-guys-nice-to-see-you-g.mp4",
+   "pack": "clips/43973894565-w0/clip01_how-s-it-going-hi-guys-nice-to-see-you-g.txt",
+   "hook": "How's it going? Hi guys, nice to see you guys again. We're\u2026",
+   "duration": 25.08,
+   "start": 40.04,
+   "end": 65.12,
+   "qa_ok": true,
+   "qa_issues": []
+  },
+  {
+   "file": "clips/43973894565-w0/clip02_yeah-it-slapped-my-booty-actually.mp4",
+   "pack": "clips/43973894565-w0/clip02_yeah-it-slapped-my-booty-actually.txt",
+   "hook": "Yeah, it slapped my booty actually",
+   "duration": 26.02,
+   "start": 611.3,
+   "end": 637.32,
+   "qa_ok": true,
+   "qa_issues": []
+  },
+  {
+   "file": "clips/43973894565-w0/clip03_oh-it-s-good-how-is-the-arm-it-s-good-th.mp4",
+   "pack": "clips/43973894565-w0/clip03_oh-it-s-good-how-is-the-arm-it-s-good-th.txt",
+   "hook": "Oh, it's good. How is the arm? It's good. That's what we're\u2026",
+   "duration": 25.68,
+   "start": 799.7,
+   "end": 825.38,
+   "qa_ok": true,
+   "qa_issues": []
+  }
+ ],
+ "error": ""
+}
